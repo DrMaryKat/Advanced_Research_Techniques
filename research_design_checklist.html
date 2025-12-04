@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Design Quality Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4facfe;
+        }
+
+        h1 {
+            color: #4facfe;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .category {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 5px solid #4facfe;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #4facfe;
+        }
+
+        .category-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .checklist-items {
+            margin-top: 15px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            border-color: #4facfe;
+            transform: translateX(5px);
+        }
+
+        .checklist-item.checked {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin-right: 15px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .checklist-item.checked .checkbox {
+            background: #4caf50;
+            border-color: #4caf50;
+        }
+
+        .checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .checklist-item.checked .checkbox::after {
+            display: block;
+        }
+
+        .item-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .recommendations {
+            margin: 30px 0;
+            padding: 25px;
+            background: #fff3e0;
+            border-radius: 10px;
+            border-left: 5px solid #ff9800;
+            display: none;
+        }
+
+        .recommendations.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .recommendations h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-item {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .recommendation-item:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .button {
+            background: #4facfe;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .button:hover {
+            background: #3a8ee6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+        }
+
+        .button-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .button-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Research Design Quality Checklist</h1>
+            <p class="subtitle">Assess Your Multilevel or Mixed-Methods Study</p>
+        </header>
+
+        <div class="score-display">
+            <div class="score-label">Overall Completion</div>
+            <div class="score-number" id="totalScore">0%</div>
+            <div class="score-label"><span id="checkedCount">0</span> of <span id="totalCount">0</span> items completed</div>
+        </div>
+
+        <!-- Category 1: Design Justification -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">🎯 Design Justification & Rationale</div>
+                <div class="category-score"><span class="cat-score" data-category="1">0</span>/5</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 1)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Research questions clearly stated and aligned with advanced methods (MLM or MM)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 1)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Compelling justification for why simple methods are insufficient</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 1)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Clear explanation of what the advanced approach adds to understanding</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 1)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Design explicitly addresses research questions (methods match questions)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 1)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Theoretical or conceptual framework guides design decisions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 2: Multilevel Modeling Specifications -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">📊 Multilevel Modeling Components (if applicable)</div>
+                <div class="category-score"><span class="cat-score" data-category="2">0</span>/6</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Levels of analysis clearly defined (what's nested in what?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">ICC reported from null model with interpretation</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Model building sequence specified (null → random intercept → random slopes → full)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Centering decisions justified (grand-mean vs. group-mean centering)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Random effects decisions explained (which slopes are random? why?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 2)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Cross-level interactions specified if testing contextual effects</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 3: Mixed-Methods Integration -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">🔗 Mixed-Methods Integration (if applicable)</div>
+                <div class="category-score"><span class="cat-score" data-category="3">0</span>/7</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Design type identified with correct notation (e.g., QUAN→qual)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Timing clearly specified (concurrent or sequential? why?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Priority/weighting justified (QUAN vs. qual? why?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Integration strategy explicit (merge, connect, or embed? where/how/when?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Joint displays or integration tables planned</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Plan for addressing divergent findings if methods disagree</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 3)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Legitimation strategies described (how will integrated inferences be validated?)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 4: Sampling & Participants -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">👥 Sampling & Participants</div>
+                <div class="category-score"><span class="cat-score" data-category="4">0</span>/5</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 4)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Sample size justified for MLM (minimum 30 Level-2 units? adequate Level-1?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 4)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Sampling strategy appropriate for design (random, purposeful, or mixed?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 4)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">For MM: Relationship between quant and qual samples specified (same, nested, parallel?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 4)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Access and recruitment feasible for proposed sample</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 4)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">For sequential MM: Plan for using Phase 1 results to inform Phase 2 sampling</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 5: Data Collection -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">📝 Data Collection Procedures</div>
+                <div class="category-score"><span class="cat-score" data-category="5">0</span>/5</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 5)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Instruments/protocols appropriate for research questions</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 5)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Reliability and validity evidence for quantitative measures</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 5)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Trustworthiness strategies for qualitative data (credibility, transferability, etc.)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 5)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Timeline realistic for collecting all data phases</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 5)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Data management plan (storage, security, organization)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 6: Ethical Considerations -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">⚖️ Ethical Considerations</div>
+                <div class="category-score"><span class="cat-score" data-category="6">0</span>/5</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 6)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">IRB approval plan (or equivalent ethics review)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 6)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Informed consent procedures for all participants</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 6)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Confidentiality at both individual AND group levels (for MLM)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 6)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Plan for protecting vulnerable populations if applicable</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 6)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Data integration won't inadvertently reveal identities in MM research</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 7: Analysis Plan -->
+        <div class="category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <div class="category-title">🔬 Analysis Plan</div>
+                <div class="category-score"><span class="cat-score" data-category="7">0</span>/5</div>
+            </div>
+            <div class="checklist-items">
+                <div class="checklist-item" onclick="toggleItem(this, 7)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Analytic approach matches research questions and design</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 7)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Software specified (R, HLM, Mplus, SPSS, NVivo, etc.) with justification</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 7)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Assumption checking planned (normality, linearity, homoscedasticity for MLM)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 7)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Missing data strategy (how will you handle incomplete data?)</div>
+                </div>
+                <div class="checklist-item" onclick="toggleItem(this, 7)">
+                    <div class="checkbox"></div>
+                    <div class="item-text">For MM: Integration analysis specified (not just separate analyses)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations" id="recommendations">
+            <h3>💡 Recommendations to Strengthen Your Design</h3>
+            <div id="recommendationsList"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="button" onclick="generateReport()">📄 Generate Report</button>
+            <button class="button button-secondary" onclick="resetChecklist()">🔄 Reset</button>
+            <button class="button button-secondary" onclick="window.location.href='advanced_research_training.html#module4'">Return to Training</button>
+        </div>
+    </div>
+
+    <script>
+        let checkedItems = new Set();
+        const categories = {
+            1: 5, 2: 6, 3: 7, 4: 5, 5: 5, 6: 5, 7: 5
+        };
+
+        function toggleItem(element, category) {
+            element.classList.toggle('checked');
+            
+            const itemIndex = Array.from(element.parentElement.children).indexOf(element);
+            const itemId = `${category}-${itemIndex}`;
+            
+            if (element.classList.contains('checked')) {
+                checkedItems.add(itemId);
+            } else {
+                checkedItems.delete(itemId);
+            }
+            
+            updateScores();
+            updateRecommendations();
+        }
+
+        function toggleCategory(header) {
+            const items = header.parentElement.querySelector('.checklist-items');
+            const isVisible = items.style.display !== 'none';
+            items.style.display = isVisible ? 'none' : 'block';
+        }
+
+        function updateScores() {
+            // Update category scores
+            for (let cat in categories) {
+                const catItems = document.querySelectorAll(`.checklist-item[onclick*="${cat}"]`);
+                const catChecked = Array.from(catItems).filter(item => item.classList.contains('checked')).length;
+                document.querySelector(`.cat-score[data-category="${cat}"]`).textContent = catChecked;
+            }
+            
+            // Update total score
+            const totalItems = Object.values(categories).reduce((a, b) => a + b, 0);
+            const totalChecked = checkedItems.size;
+            const percentage = Math.round((totalChecked / totalItems) * 100);
+            
+            document.getElementById('totalScore').textContent = percentage + '%';
+            document.getElementById('checkedCount').textContent = totalChecked;
+            document.getElementById('totalCount').textContent = totalItems;
+        }
+
+        function updateRecommendations() {
+            const recommendations = [];
+            
+            // Check each category for low completion
+            for (let cat in categories) {
+                const catItems = document.querySelectorAll(`.checklist-item[onclick*="${cat}"]`);
+                const catChecked = Array.from(catItems).filter(item => item.classList.contains('checked')).length;
+                const catTotal = categories[cat];
+                const catPercentage = (catChecked / catTotal) * 100;
+                
+                if (catPercentage < 60) {
+                    const catTitle = document.querySelector(`.cat-score[data-category="${cat}"]`)
+                        .closest('.category').querySelector('.category-title').textContent;
+                    recommendations.push(`Strengthen ${catTitle} - currently ${Math.round(catPercentage)}% complete`);
+                }
+            }
+            
+            if (recommendations.length > 0) {
+                let html = '';
+                recommendations.forEach(rec => {
+                    html += `<div class="recommendation-item">${rec}</div>`;
+                });
+                document.getElementById('recommendationsList').innerHTML = html;
+                document.getElementById('recommendations').classList.add('show');
+            } else {
+                document.getElementById('recommendations').classList.remove('show');
+            }
+        }
+
+        function resetChecklist() {
+            if (!confirm('Are you sure you want to reset all checkboxes?')) return;
+            
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.classList.remove('checked');
+            });
+            
+            checkedItems.clear();
+            updateScores();
+            updateRecommendations();
+        }
+
+        function generateReport() {
+            const percentage = parseInt(document.getElementById('totalScore').textContent);
+            let status, message;
+            
+            if (percentage >= 90) {
+                status = 'Excellent';
+                message = 'Your research design is comprehensive and well-thought-out. You\'re ready to move forward!';
+            } else if (percentage >= 75) {
+                status = 'Strong';
+                message = 'Your design is solid. Address the remaining items to make it even stronger.';
+            } else if (percentage >= 60) {
+                status = 'Good Progress';
+                message = 'You\'ve made good progress. Focus on completing the categories below 60%.';
+            } else {
+                status = 'Needs Development';
+                message = 'Your design needs significant development. Review Module 2-4 content and work through each category systematically.';
+            }
+            
+            alert(`✅ Research Design Quality Report\n\nStatus: ${status}\nCompletion: ${percentage}%\n\n${message}\n\nReview the recommendations below to strengthen your design.`);
+        }
+
+        // Initialize
+        updateScores();
+        document.getElementById('totalCount').textContent = Object.values(categories).reduce((a, b) => a + b, 0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed-Methods Design Selection Wizard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f093fb;
+        }
+
+        h1 {
+            color: #f093fb;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .question-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .question-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-box {
+            background: #fef5f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #f093fb;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f093fb;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .option {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #f093fb;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+        }
+
+        .option.selected {
+            border-color: #f093fb;
+            background: #fef5f9;
+        }
+
+        .option-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #f093fb;
+            margin-bottom: 8px;
+        }
+
+        .option-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: #f093fb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e075e8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-container {
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .design-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .design-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .design-notation {
+            font-size: 1.8rem;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-section {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .info-section h3 {
+            color: #f093fb;
+            margin-bottom: 15px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .info-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .timeline-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .timeline-box h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .design-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 Design Selection Wizard</h1>
+            <p class="subtitle">Find the Right Mixed-Methods Design for Your Research</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 4</div>
+        </div>
+
+        <div id="wizardContainer">
+            <!-- Question 1: Primary Purpose -->
+            <div class="question-container active" data-question="1">
+                <div class="question-box">
+                    <div class="question-title">Question 1: What is Your Primary Research Purpose?</div>
+                    <div class="question-text">What are you trying to accomplish with your research?</div>
+                </div>
+
+                <div class="options">
+                    <div class="option" onclick="selectOption(1, 'explore')">
+                        <div class="option-title">🔍 Explore & Discover</div>
+                        <div class="option-description">I need to explore a phenomenon, identify variables, or develop an understanding before I can measure it quantitatively</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(1, 'explain')">
+                        <div class="option-title">📊 Explain Patterns</div>
+                        <div class="option-description">I have quantitative data/results that need deeper explanation through qualitative investigation</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(1, 'validate')">
+                        <div class="option-title">✅ Validate & Triangulate</div>
+                        <div class="option-description">I want to compare/corroborate findings from both methods collected concurrently</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(1, 'enhance')">
+                        <div class="option-title">➕ Enhance Understanding</div>
+                        <div class="option-description">One method plays a supportive role embedded within a larger study using the other method</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="window.location.href='advanced_research_training.html#module3'">Cancel</button>
+                    <button class="btn btn-primary" id="nextBtn1" onclick="nextQuestion(1)" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Question 2: Timing -->
+            <div class="question-container" data-question="2">
+                <div class="question-box">
+                    <div class="question-title">Question 2: What Are Your Timing Constraints?</div>
+                    <div class="question-text">When can you collect your quantitative and qualitative data?</div>
+                </div>
+
+                <div class="options">
+                    <div class="option" onclick="selectOption(2, 'sequential')">
+                        <div class="option-title">⏭️ Sequential (One After Another)</div>
+                        <div class="option-description">I can collect one type first, analyze it, then use those results to inform the second phase</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(2, 'concurrent')">
+                        <div class="option-title">⏯️ Concurrent (At Same Time)</div>
+                        <div class="option-description">I need to collect both types of data at roughly the same time due to time/resource constraints</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="previousQuestion(2)">← Back</button>
+                    <button class="btn btn-primary" id="nextBtn2" onclick="nextQuestion(2)" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Question 3: Priority -->
+            <div class="question-container" data-question="3">
+                <div class="question-box">
+                    <div class="question-title">Question 3: Which Method Has Priority?</div>
+                    <div class="question-text">Which approach is more central to answering your research questions?</div>
+                </div>
+
+                <div class="options">
+                    <div class="option" onclick="selectOption(3, 'quantitative')">
+                        <div class="option-title">📊 Quantitative Priority (QUAN)</div>
+                        <div class="option-description">Quantitative is primary—larger sample, more emphasis, drives conclusions</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(3, 'qualitative')">
+                        <div class="option-title">💬 Qualitative Priority (QUAL)</div>
+                        <div class="option-description">Qualitative is primary—deeper exploration, more emphasis, drives conclusions</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(3, 'equal')">
+                        <div class="option-title">⚖️ Equal Priority</div>
+                        <div class="option-description">Both methods are equally important and receive similar weight</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="previousQuestion(3)">← Back</button>
+                    <button class="btn btn-primary" id="nextBtn3" onclick="nextQuestion(3)" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Question 4: Special Needs -->
+            <div class="question-container" data-question="4">
+                <div class="question-box">
+                    <div class="question-title">Question 4: Do You Have Specific Methodological Needs?</div>
+                    <div class="question-text">Select any that apply to your study:</div>
+                </div>
+
+                <div class="options">
+                    <div class="option" onclick="selectOption(4, 'instrument')">
+                        <div class="option-title">🎯 Need to Develop an Instrument</div>
+                        <div class="option-description">I need to create a survey, test, or measurement tool based on qualitative exploration</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(4, 'outliers')">
+                        <div class="option-title">🔍 Need to Explain Unexpected Results</div>
+                        <div class="option-description">I have (or expect) quantitative results that need deeper investigation</div>
+                    </div>
+
+                    <div class="option" onclick="selectOption(4, 'none')">
+                        <div class="option-title">❌ None of the Above</div>
+                        <div class="option-description">My study doesn't have these specific needs</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="previousQuestion(4)">← Back</button>
+                    <button class="btn btn-primary" id="nextBtn4" onclick="showResults()">See My Design →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container" id="resultsContainer">
+            <div class="design-card">
+                <div class="design-name" id="designName"></div>
+                <div class="design-notation" id="designNotation"></div>
+            </div>
+
+            <div class="info-section">
+                <h3>📋 Design Overview</h3>
+                <p id="designDescription"></p>
+            </div>
+
+            <div class="info-section">
+                <h3>✨ Why This Design Fits Your Study</h3>
+                <ul class="info-list" id="designRationale"></ul>
+            </div>
+
+            <div class="timeline-box">
+                <h4>⏱️ Typical Timeline</h4>
+                <p id="designTimeline"></p>
+            </div>
+
+            <div class="info-section">
+                <h3>🔗 Integration Strategy</h3>
+                <p id="integrationStrategy"></p>
+            </div>
+
+            <div class="info-section">
+                <h3>⚠️ Key Considerations</h3>
+                <ul class="info-list" id="considerations"></ul>
+            </div>
+
+            <div class="buttons" style="margin-top: 30px;">
+                <button class="btn btn-secondary" onclick="restartWizard()">🔄 Start Over</button>
+                <button class="btn btn-primary" onclick="window.location.href='advanced_research_training.html#module3'">Return to Training</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let answers = {
+            purpose: null,
+            timing: null,
+            priority: null,
+            special: null
+        };
+
+        let currentQuestion = 1;
+
+        function selectOption(question, value) {
+            // Clear previous selection
+            const options = document.querySelectorAll(`.question-container[data-question="${question}"] .option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            // Select current option
+            event.target.closest('.option').classList.add('selected');
+
+            // Store answer
+            if (question === 1) answers.purpose = value;
+            if (question === 2) answers.timing = value;
+            if (question === 3) answers.priority = value;
+            if (question === 4) answers.special = value;
+
+            // Enable next button
+            document.getElementById(`nextBtn${question}`).disabled = false;
+        }
+
+        function nextQuestion(current) {
+            // Hide current question
+            document.querySelector(`.question-container[data-question="${current}"]`).classList.remove('active');
+            
+            // Show next question
+            currentQuestion = current + 1;
+            document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        function previousQuestion(current) {
+            // Hide current question
+            document.querySelector(`.question-container[data-question="${current}"]`).classList.remove('active');
+            
+            // Show previous question
+            currentQuestion = current - 1;
+            document.querySelector(`.question-container[data-question="${currentQuestion}"]`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / 4) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion} of 4`;
+        }
+
+        function showResults() {
+            // Hide wizard
+            document.getElementById('wizardContainer').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+
+            // Determine design
+            const design = determineDesign();
+            
+            // Display results
+            document.getElementById('designName').textContent = design.name;
+            document.getElementById('designNotation').textContent = design.notation;
+            document.getElementById('designDescription').textContent = design.description;
+            
+            // Rationale
+            let rationaleHTML = '';
+            design.rationale.forEach(reason => {
+                rationaleHTML += `<li>${reason}</li>`;
+            });
+            document.getElementById('designRationale').innerHTML = rationaleHTML;
+
+            document.getElementById('designTimeline').textContent = design.timeline;
+            document.getElementById('integrationStrategy').textContent = design.integration;
+            
+            // Considerations
+            let considerationsHTML = '';
+            design.considerations.forEach(consideration => {
+                considerationsHTML += `<li>${consideration}</li>`;
+            });
+            document.getElementById('considerations').innerHTML = considerationsHTML;
+
+            // Show results
+            document.getElementById('resultsContainer').classList.add('show');
+        }
+
+        function determineDesign() {
+            const designs = {
+                exploratorySequential: {
+                    name: 'Exploratory Sequential Design',
+                    notation: 'QUAL → quan',
+                    description: 'Start with qualitative exploration to understand a phenomenon, identify variables, or develop constructs. Then use those insights to inform quantitative instrument development or model testing with a larger sample.',
+                    rationale: [
+                        'Your primary purpose is exploration and discovery',
+                        'You need to develop understanding before you can measure quantitatively',
+                        'Sequential timing allows one phase to build on the other'
+                    ],
+                    timeline: '18-24 months typical. Phase 1: Qualitative data collection and analysis (6-8 months). Phase 2: Instrument development and quantitative testing (8-12 months). Phase 3: Integration and interpretation (2-4 months).',
+                    integration: 'Connect: Qualitative findings inform quantitative instrument design, variable selection, or hypothesis development. Integration occurs in the transition from Phase 1 to Phase 2 and again when interpreting results.',
+                    considerations: [
+                        'Requires strong qualitative skills for Phase 1',
+                        'Sample for Phase 2 should be different from Phase 1',
+                        'Document clearly how qualitative findings shaped quantitative measures',
+                        'IRB approval may need to be staged if Phase 2 design depends on Phase 1 results'
+                    ]
+                },
+                explanatorySequential: {
+                    name: 'Explanatory Sequential Design',
+                    notation: 'QUAN → qual',
+                    description: 'Begin with quantitative data collection and analysis to identify patterns, relationships, or unexpected findings. Then use qualitative methods to explain, elaborate on, or explore those quantitative results in depth.',
+                    rationale: [
+                        'You want to explain patterns found in quantitative data',
+                        'Sequential timing allows quantitative results to guide qualitative phase',
+                        'Quantitative has priority in your study'
+                    ],
+                    timeline: '18-24 months typical. Phase 1: Quantitative data collection and analysis (6-10 months). Phase 2: Qualitative data collection to explain results (6-8 months). Phase 3: Integration and interpretation (2-4 months).',
+                    integration: 'Connect: Quantitative results guide qualitative sampling (purposeful sampling of outliers or typical cases) and interview protocol development. Integration occurs in interpretation, showing HOW qualitative findings explain WHY quantitative patterns exist.',
+                    considerations: [
+                        'Use quantitative results to strategically sample for qualitative phase',
+                        'Focus qualitative inquiry on explaining unexpected or important quantitative findings',
+                        'Quantitative phase must be completed and analyzed before designing qualitative phase',
+                        'Consider sampling extreme cases (high/low performers) or deviant cases for rich qualitative data'
+                    ]
+                },
+                convergent: {
+                    name: 'Convergent Design',
+                    notation: 'QUAN + QUAL',
+                    description: 'Collect quantitative and qualitative data concurrently but independently, analyze separately, then merge results during interpretation to compare, contrast, and triangulate findings.',
+                    rationale: [
+                        'You want to validate findings through triangulation',
+                        'Concurrent timing fits your resource/access constraints',
+                        'Both methods have equal or similar priority'
+                    ],
+                    timeline: '12-18 months typical. Concurrent data collection (4-6 months). Parallel but separate analyses (4-6 months). Integration through comparison and joint displays (2-4 months).',
+                    integration: 'Merge: Analyze datasets separately, then bring results together in joint displays for side-by-side comparison. Look for convergence (agreement), divergence (disagreement), or expansion (one method reveals what the other cannot).',
+                    considerations: [
+                        'Both strands should address the same research questions from different angles',
+                        'Samples can be same participants or different but comparable',
+                        'Joint displays are essential—create tables/matrices showing both datasets together',
+                        'Must address divergent findings if results contradict—don't hide them!',
+                        'Most efficient time-wise but cognitively demanding'
+                    ]
+                },
+                embedded: {
+                    name: 'Embedded Design',
+                    notation: 'QUAN(qual) or QUAL(quan)',
+                    description: 'One method plays a supportive, secondary role embedded within a larger study dominated by the other method. The secondary method addresses a different question or provides supporting information.',
+                    rationale: [
+                        'One method is clearly primary in your study',
+                        'The secondary method enhances but doesn't drive conclusions',
+                        'You want supportive information from the embedded method'
+                    ],
+                    timeline: '12-18 months typical. Primary method drives timeline. Embedded method occurs before, during, or after primary method depending on its purpose (e.g., qual embedded in QUAN experiment might occur during intervention to understand implementation).',
+                    integration: 'Embed: Secondary data provides context, explains mechanisms, or addresses procedural questions within the larger primary study. Integration shows how embedded data enhances understanding of primary findings.',
+                    considerations: [
+                        'Clearly justify why embedded method is needed',
+                        'Embedded method often addresses different (but related) research question',
+                        'Don't oversell the embedded strand—acknowledge its supportive role',
+                        'Common examples: qual interviews during QUAN experiment; quan survey within QUAL ethnography'
+                    ]
+                }
+            };
+
+            // Decision logic
+            if (answers.purpose === 'explore' && answers.timing === 'sequential') {
+                return designs.exploratorySequential;
+            } else if (answers.purpose === 'explain' && answers.timing === 'sequential') {
+                return designs.explanatorySequential;
+            } else if (answers.purpose === 'validate' && answers.timing === 'concurrent') {
+                return designs.convergent;
+            } else if (answers.purpose === 'enhance') {
+                return designs.embedded;
+            } else if (answers.special === 'instrument') {
+                return designs.exploratorySequential;
+            } else if (answers.special === 'outliers') {
+                return designs.explanatorySequential;
+            } else if (answers.timing === 'concurrent') {
+                return designs.convergent;
+            } else if (answers.priority === 'equal' && answers.timing === 'concurrent') {
+                return designs.convergent;
+            } else {
+                // Default to most flexible
+                return designs.convergent;
+            }
+        }
+
+        function restartWizard() {
+            answers = { purpose: null, timing: null, priority: null, special: null };
+            currentQuestion = 1;
+            
+            document.getElementById('wizardContainer').style.display = 'block';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.getElementById('resultsContainer').classList.remove('show');
+            
+            // Reset all questions
+            document.querySelectorAll('.question-container').forEach(q => q.classList.remove('active'));
+            document.querySelector('.question-container[data-question="1"]').classList.add('active');
+            
+            // Reset selections
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Disable all next buttons
+            document.querySelectorAll('[id^="nextBtn"]').forEach(btn => btn.disabled = true);
+            
+            updateProgress();
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

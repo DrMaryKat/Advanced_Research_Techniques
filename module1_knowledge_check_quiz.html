@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 Knowledge Check Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196F3;
+        }
+
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .question-container {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .options {
+            margin-left: 10px;
+        }
+
+        .option {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f5f7ff;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #f5f7ff;
+        }
+
+        .option.correct {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            border-left: 5px solid #4caf50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            border-left: 5px solid #f44336;
+            color: #c62828;
+        }
+
+        .feedback h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .quiz-info-item {
+            text-align: center;
+        }
+
+        .quiz-info-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .quiz-info-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .score-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .performance-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .badge-excellent {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .badge-good {
+            background: #b3e5fc;
+            color: #01579b;
+        }
+
+        .badge-fair {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .badge-needs-review {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .review-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 5px solid #ddd;
+        }
+
+        .review-item.correct {
+            border-left-color: #4caf50;
+        }
+
+        .review-item.incorrect {
+            border-left-color: #f44336;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .review-answer {
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .review-answer.user {
+            color: #666;
+        }
+
+        .review-answer.correct-ans {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .quiz-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Module 1 Knowledge Check</h1>
+            <p class="subtitle">Foundations of Advanced Research Design</p>
+        </header>
+
+        <div class="instructions">
+            <h3>📋 Instructions</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>This quiz has <strong>10 multiple-choice questions</strong></li>
+                <li>Select your answer by clicking on it</li>
+                <li>Click "Submit Answer" to see if you're correct</li>
+                <li>You'll receive immediate feedback and explanations</li>
+                <li>You need <strong>80% (8/10)</strong> to pass</li>
+                <li>Take your time and think carefully!</li>
+            </ul>
+        </div>
+
+        <div class="quiz-info">
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Question</div>
+                <div class="quiz-info-value"><span id="currentQuestion">1</span> / 10</div>
+            </div>
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Score</div>
+                <div class="quiz-info-value"><span id="currentScore">0</span> / 10</div>
+            </div>
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Percentage</div>
+                <div class="quiz-info-value"><span id="percentage">0</span>%</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer"></div>
+
+        <!-- Results Container -->
+        <div class="results-container" id="resultsContainer">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="score-display" id="finalScore">0/10</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <div class="performance-badge" id="performanceBadge"></div>
+            
+            <div class="review-section">
+                <h3 style="margin-bottom: 20px; color: #667eea;">📝 Review Your Answers</h3>
+                <div id="reviewContent"></div>
+            </div>
+
+            <div class="buttons" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="retakeQuiz()">🔄 Retake Quiz</button>
+                <button class="btn btn-secondary" onclick="window.location.href='advanced_research_training.html#module2'">Continue to Module 2 →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Questions Database
+        const quizQuestions = [
+            {
+                question: "When is multilevel modeling necessary for your research?",
+                options: [
+                    "Only when you have more than 1,000 participants",
+                    "When your data has a nested or hierarchical structure (e.g., students within classrooms)",
+                    "Only for longitudinal studies with repeated measures",
+                    "Whenever you want to impress your dissertation committee"
+                ],
+                correct: 1,
+                explanation: "Multilevel modeling is necessary when you have nested or hierarchical data structures. Even with relatively small samples, if observations are grouped (students in classrooms, teachers in schools), ignoring this clustering violates independence assumptions and produces biased results. The key indicator is whether an ICC (intraclass correlation) shows meaningful clustering, typically ICC > .05."
+            },
+            {
+                question: "What is the Intraclass Correlation (ICC) and why does it matter?",
+                options: [
+                    "A measure of how well your variables correlate with each other",
+                    "The percentage of total variance in an outcome that is due to differences between groups",
+                    "A statistical test to determine if your sample size is adequate",
+                    "The correlation between independent and dependent variables"
+                ],
+                correct: 1,
+                explanation: "The ICC represents the proportion of total variance that exists between groups rather than within groups. For example, an ICC of .15 means 15% of variance in student achievement is due to differences between schools. Even small ICCs (> .05) indicate you should use multilevel modeling because observations within groups are not independent."
+            },
+            {
+                question: "Which scenario MOST clearly requires mixed-methods research?",
+                options: [
+                    "You want to survey 500 teachers about their job satisfaction",
+                    "You want to understand both the prevalence of a leadership practice AND the lived experiences of how principals enact it",
+                    "You need to complete your dissertation quickly and want to hedge your bets",
+                    "Your committee members disagree on whether you should use quantitative or qualitative methods"
+                ],
+                correct: 1,
+                explanation: "Mixed methods is most appropriate when you need both breadth (prevalence, patterns, generalization) AND depth (meaning, mechanisms, processes). Option B requires quantitative data to show how common the practice is and qualitative data to understand how it's actually implemented. Mixed methods should never be a 'hedge' or compromise—it should be genuinely necessary for your research questions."
+            },
+            {
+                question: "What is the PRIMARY problem with using traditional regression on nested data?",
+                options: [
+                    "It's too simple and won't impress reviewers",
+                    "It violates the independence assumption, producing incorrect standard errors and p-values",
+                    "It can't handle missing data effectively",
+                    "It requires larger sample sizes than multilevel models"
+                ],
+                correct: 1,
+                explanation: "The fundamental problem is that traditional regression assumes all observations are independent. When students are nested in classrooms, they're more similar to each other than to students in other classrooms. This dependency means standard errors are underestimated and p-values are too optimistic (Type I error inflation). Even with a small ICC, this violation is serious."
+            },
+            {
+                question: "In the evolution of educational research, what development occurred in the 1980s?",
+                options: [
+                    "The invention of statistical significance testing",
+                    "Recognition of hierarchical data problems and development of HLM techniques",
+                    "Universal adoption of qualitative methods",
+                    "The end of quantitative research in education"
+                ],
+                correct: 1,
+                explanation: "The 1980s saw researchers recognizing that educational data is inherently hierarchical and that traditional methods couldn't handle this properly. This led to the development of Hierarchical Linear Modeling (HLM) techniques by researchers like Raudenbush and Bryk. This was a major methodological advancement for educational research."
+            },
+            {
+                question: "Why do the 'paradigm wars' matter for mixed-methods research?",
+                options: [
+                    "They don't—they're just historical trivia",
+                    "They explain why mixed methods emerged as a legitimate approach that honors both quantitative and qualitative traditions",
+                    "They prove that quantitative methods are superior to qualitative methods",
+                    "They show that researchers should only use one method at a time"
+                ],
+                correct: 1,
+                explanation: "The paradigm wars (1990s debates between quantitative and qualitative researchers) eventually led to recognition that both approaches have value. Mixed methods emerged in the 2000s as a 'third paradigm' that doesn't require choosing sides but instead integrates both when research questions demand it. Understanding this history helps justify why mixed methods is now a legitimate and valued approach."
+            },
+            {
+                question: "A researcher has an ICC of 0.04 (4% of variance is between schools). Should they use multilevel modeling?",
+                options: [
+                    "No—ICC is below 5%, so traditional regression is fine",
+                    "Yes—any meaningful clustering requires MLM, and 4% can still bias results",
+                    "Only if they have more than 100 schools",
+                    "It depends on whether their advisor prefers MLM"
+                ],
+                correct: 1,
+                explanation: "Even small ICCs can produce biased standard errors. While some guidelines suggest ICC > .05 as a rule of thumb, conservative practice recommends using MLM with any meaningful clustering. A 4% ICC means 4% of variance is explained by school membership—ignoring this violates independence. The bias may be small but it's still present, and MLM should be used."
+            },
+            {
+                question: "What is the main limitation of using ONLY quantitative methods for complex educational problems?",
+                options: [
+                    "Quantitative methods are less rigorous than qualitative methods",
+                    "Quantitative methods can show patterns and relationships but often can't explain the 'how' and 'why' behind them",
+                    "Sample sizes are always too small in quantitative research",
+                    "Quantitative methods can't use statistical tests"
+                ],
+                correct: 1,
+                explanation: "Quantitative methods excel at identifying patterns, relationships, and prevalence across large samples. However, they often can't reveal the mechanisms, processes, or contextual factors that explain WHY those patterns exist. That's where qualitative data adds value—providing depth, context, and understanding of processes that numbers alone cannot capture."
+            },
+            {
+                question: "Which research question is BEST suited for advanced methods (multilevel or mixed methods)?",
+                options: [
+                    "What percentage of principals are female?",
+                    "How does principal leadership affect teacher retention, does this vary across schools, and what explains the variation?",
+                    "What is the correlation between salary and job satisfaction?",
+                    "Do teachers with master's degrees earn more than those without?"
+                ],
+                correct: 1,
+                explanation: "Option B requires advanced methods because it asks about: (1) effects across nested levels (principals → teachers), (2) variation in effects across schools (random slopes), and (3) mechanisms explaining variation (requiring qualitative depth). Options A, C, and D can be answered with descriptive statistics, correlation, or simple regression—no advanced methods needed."
+            },
+            {
+                question: "What is the most important principle when deciding on your research design?",
+                options: [
+                    "Choose the method you're most comfortable with",
+                    "Use the most complex method possible to impress your committee",
+                    "Let your research questions drive your methodological choices",
+                    "Always use mixed methods because more data is better"
+                ],
+                correct: 2,
+                explanation: "The golden rule of research design: Let your questions drive your methods, not vice versa. Advanced methods should be used when necessary to answer your specific research questions, not to impress committees or because 'more is better.' Use multilevel modeling when you have nested data and want to examine cross-level effects. Use mixed methods when you genuinely need both breadth and depth. Use simpler methods when they're adequate."
+            }
+        ];
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        // Initialize Quiz
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            renderQuestion();
+            updateProgress();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const container = document.getElementById('quizContainer');
+            const question = quizQuestions[currentQuestionIndex];
+            
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">Question ${currentQuestionIndex + 1} of 10</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options" id="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                <input type="radio" name="answer" id="option${index}" value="${index}">
+                                <label for="option${index}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="buttons">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${currentQuestionIndex === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Previous
+                        </button>
+                        <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()">
+                            Submit Answer
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // If user has already answered this question, show their answer
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                selectOption(userAnswers[currentQuestionIndex].selected);
+                showFeedback(userAnswers[currentQuestionIndex].selected === question.correct);
+            }
+
+            updateProgress();
+        }
+
+        // Select Option
+        function selectOption(index) {
+            // Remove previous selections
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Mark selected
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            document.getElementById(`option${index}`).checked = true;
+        }
+
+        // Submit Answer
+        function submitAnswer() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            
+            if (!selected) {
+                alert('Please select an answer before submitting.');
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.value);
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = selectedIndex === question.correct;
+
+            // Save answer if not already saved
+            if (userAnswers[currentQuestionIndex] === undefined) {
+                userAnswers[currentQuestionIndex] = {
+                    selected: selectedIndex,
+                    correct: isCorrect
+                };
+                
+                if (isCorrect) {
+                    score++;
+                }
+            }
+
+            showFeedback(isCorrect);
+            updateProgress();
+        }
+
+        // Show Feedback
+        function showFeedback(isCorrect) {
+            const question = quizQuestions[currentQuestionIndex];
+            const feedback = document.getElementById('feedback');
+            const submitBtn = document.getElementById('submitBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const options = document.querySelectorAll('.option');
+
+            // Disable all options
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    opt.classList.add('correct');
+                } else if (index === parseInt(document.querySelector('input[name="answer"]:checked').value) && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Show feedback
+            feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = `
+                <h4>${isCorrect ? '✅ Correct!' : '❌ Incorrect'}</h4>
+                <p><strong>Explanation:</strong> ${question.explanation}</p>
+            `;
+
+            // Update buttons
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'inline-block';
+            nextBtn.textContent = currentQuestionIndex === 9 ? 'View Results →' : 'Next →';
+        }
+
+        // Next Question
+        function nextQuestion() {
+            if (currentQuestionIndex < 9) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Previous Question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // Update Progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / 10) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('percentage').textContent = Math.round((score / 10) * 100);
+        }
+
+        // Show Results
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = (score / 10) * 100;
+            
+            // Update score display
+            document.getElementById('finalScore').textContent = `${score}/10`;
+            
+            // Set message and badge based on performance
+            let message, badge, badgeClass;
+            if (percentage >= 90) {
+                message = "Excellent! You have a strong grasp of foundational concepts.";
+                badge = "🌟 Excellent";
+                badgeClass = "badge-excellent";
+            } else if (percentage >= 80) {
+                message = "Great job! You understand the core concepts well.";
+                badge = "✅ Passed";
+                badgeClass = "badge-good";
+            } else if (percentage >= 70) {
+                message = "Good effort! Review the areas you missed and try again.";
+                badge = "📚 Good";
+                badgeClass = "badge-fair";
+            } else {
+                message = "You may want to review Module 1 content before proceeding.";
+                badge = "📖 Needs Review";
+                badgeClass = "badge-needs-review";
+            }
+
+            document.getElementById('scoreMessage').textContent = message;
+            const badgeElement = document.getElementById('performanceBadge');
+            badgeElement.textContent = badge;
+            badgeElement.className = 'performance-badge ' + badgeClass;
+
+            // Generate review
+            generateReview();
+        }
+
+        // Generate Review
+        function generateReview() {
+            const reviewContent = document.getElementById('reviewContent');
+            let html = '';
+
+            quizQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer && userAnswer.correct;
+                
+                html += `
+                    <div class="review-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="review-question">
+                            <strong>Question ${index + 1}:</strong> ${question.question}
+                        </div>
+                        <div class="review-answer user">
+                            <strong>Your answer:</strong> ${question.options[userAnswer.selected]}
+                            ${isCorrect ? '✅' : '❌'}
+                        </div>
+                        ${!isCorrect ? `
+                            <div class="review-answer correct-ans">
+                                <strong>Correct answer:</strong> ${question.options[question.correct]}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            reviewContent.innerHTML = html;
+        }
+
+        // Retake Quiz
+        function retakeQuiz() {
+            document.getElementById('quizContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        // Initialize on page load
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>

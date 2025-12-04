@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joint Display Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f093fb;
+        }
+
+        h1 {
+            color: #f093fb;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .info-box {
+            background: #fce4ec;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e91e63;
+        }
+
+        .template-selector {
+            margin: 30px 0;
+        }
+
+        .template-selector h3 {
+            color: #f093fb;
+            margin-bottom: 15px;
+        }
+
+        .template-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .template-card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-card:hover {
+            border-color: #f093fb;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+        }
+
+        .template-card.selected {
+            border-color: #f093fb;
+            background: #fef5f9;
+        }
+
+        .template-card h4 {
+            color: #f093fb;
+            margin-bottom: 8px;
+        }
+
+        .template-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .builder-section {
+            display: none;
+            margin: 30px 0;
+        }
+
+        .builder-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #f093fb;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .button {
+            background: #f093fb;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .button:hover {
+            background: #e075e8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+        }
+
+        .button-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .button-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .display-preview {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .display-preview h3 {
+            color: #f093fb;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #f093fb;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #fef5f9;
+        }
+
+        .export-options {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .template-options {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Joint Display Builder</h1>
+            <p class="subtitle">Create Professional Mixed-Methods Integration Tables</p>
+        </header>
+
+        <div class="info-box">
+            <h3>What is a Joint Display?</h3>
+            <p>A joint display is a table or visual that presents <strong>quantitative</strong> and <strong>qualitative</strong> data side-by-side in a single integrated format. It's the hallmark of quality mixed-methods research because it shows you're truly integrating, not just reporting methods separately. Joint displays help you identify convergence, divergence, and generate meta-inferences.</p>
+        </div>
+
+        <div class="template-selector">
+            <h3>Step 1: Choose Your Template</h3>
+            <div class="template-options">
+                <div class="template-card" onclick="selectTemplate('convergent')">
+                    <h4>Convergent Comparison</h4>
+                    <p>Compare findings side-by-side to see agreement/disagreement</p>
+                </div>
+
+                <div class="template-card" onclick="selectTemplate('case')">
+                    <h4>Case-by-Case Analysis</h4>
+                    <p>Multiple cases with quant metrics and qual descriptions</p>
+                </div>
+
+                <div class="template-card" onclick="selectTemplate('sequential')">
+                    <h4>Sequential Explanation</h4>
+                    <p>Quant patterns → Qual explanations of WHY</p>
+                </div>
+
+                <div class="template-card" onclick="selectTemplate('theme')">
+                    <h4>Theme Integration</h4>
+                    <p>Qual themes with supporting quant data</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="builder-section" id="builderSection">
+            <h3 style="color: #f093fb; margin-bottom: 20px;">Step 2: Add Your Data</h3>
+            <p style="margin-bottom: 20px;">Fill in the fields below. You can add multiple rows by clicking "Add Row".</p>
+
+            <div id="dataInputs"></div>
+
+            <div style="margin: 20px 0;">
+                <button class="button" onclick="addRow()">+ Add Row</button>
+                <button class="button button-secondary" onclick="generateDisplay()">Generate Display</button>
+            </div>
+        </div>
+
+        <div class="display-preview" id="displayPreview" style="display: none;">
+            <h3>Your Joint Display</h3>
+            <div id="tableContainer"></div>
+
+            <div class="export-options">
+                <button class="button" onclick="copyTable()">📋 Copy to Clipboard</button>
+                <button class="button button-secondary" onclick="downloadHTML()">💾 Download HTML</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="button button-secondary" onclick="window.location.href='advanced_research_training.html#module3'">Return to Training</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedTemplate = null;
+        let rowCount = 0;
+        let dataRows = [];
+
+        const templates = {
+            convergent: {
+                name: 'Convergent Comparison Matrix',
+                columns: ['Research Question/Theme', 'Quantitative Findings', 'Qualitative Findings', 'Integration/Meta-Inference'],
+                placeholders: [
+                    'e.g., What factors support retention?',
+                    'e.g., 65% cited salary (n=200, p<.001)',
+                    'e.g., Interviews emphasized work-life balance over salary',
+                    'e.g., Divergence: Survey focus on salary may reflect social desirability; interviews reveal deeper priorities'
+                ]
+            },
+            case: {
+                name: 'Case-Ordered Display',
+                columns: ['Case/School', 'Quantitative Metrics', 'Qualitative Description', 'Interpretation'],
+                placeholders: [
+                    'e.g., Lincoln High School',
+                    'e.g., Achievement gain: +12% (Effect size: 0.45)',
+                    'e.g., Strong principal-teacher trust, collaborative PD',
+                    'e.g., Positive deviant—high gains despite high poverty due to relational culture'
+                ]
+            },
+            sequential: {
+                name: 'Explanatory Sequential Display',
+                columns: ['Quantitative Pattern', 'Statistical Details', 'Qualitative Explanation', 'Integrated Conclusion'],
+                placeholders: [
+                    'e.g., Urban teachers leave at 2x rate',
+                    'e.g., HR=2.1, 95% CI [1.5, 2.9], p<.001',
+                    'e.g., Interviews reveal lack of admin support, not salary',
+                    'e.g., Retention initiatives should target leadership development, not just compensation'
+                ]
+            },
+            theme: {
+                name: 'Theme-by-Frequency Matrix',
+                columns: ['Qualitative Theme', 'Representative Quotes', 'Quantitative Support', 'Strength of Evidence'],
+                placeholders: [
+                    'e.g., Collaborative culture matters',
+                    'e.g., "We solve problems together" (Principal, School A)',
+                    'e.g., Collaboration score correlated with retention: r=.68, p<.001',
+                    'e.g., Strong convergence—both methods emphasize collaboration'
+                ]
+            }
+        };
+
+        function selectTemplate(type) {
+            selectedTemplate = type;
+            
+            // Update UI
+            document.querySelectorAll('.template-card').forEach(card => card.classList.remove('selected'));
+            event.target.closest('.template-card').classList.add('selected');
+            
+            // Show builder
+            document.getElementById('builderSection').classList.add('active');
+            
+            // Reset and create input fields
+            rowCount = 0;
+            dataRows = [];
+            document.getElementById('dataInputs').innerHTML = '';
+            addRow();
+        }
+
+        function addRow() {
+            if (!selectedTemplate) {
+                alert('Please select a template first!');
+                return;
+            }
+
+            const template = templates[selectedTemplate];
+            const rowId = rowCount++;
+            
+            const rowDiv = document.createElement('div');
+            rowDiv.id = `row-${rowId}`;
+            rowDiv.style.background = '#f5f5f5';
+            rowDiv.style.padding = '20px';
+            rowDiv.style.borderRadius = '10px';
+            rowDiv.style.marginBottom = '20px';
+            rowDiv.style.border = '2px solid #ddd';
+
+            let inputsHTML = `<h4 style="color: #f093fb; margin-bottom: 15px;">Row ${rowId + 1}</h4>`;
+            
+            template.columns.forEach((col, idx) => {
+                inputsHTML += `
+                    <div class="input-group">
+                        <label>${col}</label>
+                        <input type="text" id="row-${rowId}-col-${idx}" placeholder="${template.placeholders[idx]}">
+                    </div>
+                `;
+            });
+
+            inputsHTML += `<button class="button button-secondary" onclick="removeRow(${rowId})">Remove Row</button>`;
+            
+            rowDiv.innerHTML = inputsHTML;
+            document.getElementById('dataInputs').appendChild(rowDiv);
+        }
+
+        function removeRow(rowId) {
+            document.getElementById(`row-${rowId}`).remove();
+        }
+
+        function generateDisplay() {
+            if (!selectedTemplate) {
+                alert('Please select a template first!');
+                return;
+            }
+
+            const template = templates[selectedTemplate];
+            dataRows = [];
+
+            // Collect data from all rows
+            for (let i = 0; i < rowCount; i++) {
+                const rowDiv = document.getElementById(`row-${i}`);
+                if (!rowDiv) continue;
+
+                const rowData = [];
+                for (let j = 0; j < template.columns.length; j++) {
+                    const input = document.getElementById(`row-${i}-col-${j}`);
+                    if (input) {
+                        rowData.push(input.value || template.placeholders[j]);
+                    }
+                }
+                if (rowData.length > 0) {
+                    dataRows.push(rowData);
+                }
+            }
+
+            if (dataRows.length === 0) {
+                alert('Please add at least one row of data!');
+                return;
+            }
+
+            // Generate table HTML
+            let tableHTML = `<table><thead><tr>`;
+            template.columns.forEach(col => {
+                tableHTML += `<th>${col}</th>`;
+            });
+            tableHTML += `</tr></thead><tbody>`;
+
+            dataRows.forEach(row => {
+                tableHTML += `<tr>`;
+                row.forEach(cell => {
+                    tableHTML += `<td>${cell}</td>`;
+                });
+                tableHTML += `</tr>`;
+            });
+
+            tableHTML += `</tbody></table>`;
+
+            // Display
+            document.getElementById('tableContainer').innerHTML = tableHTML;
+            document.getElementById('displayPreview').style.display = 'block';
+            
+            // Scroll to preview
+            document.getElementById('displayPreview').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyTable() {
+            const table = document.querySelector('#tableContainer table');
+            if (!table) return;
+
+            // Create a range and select the table
+            const range = document.createRange();
+            range.selectNode(table);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                alert('✅ Table copied to clipboard! You can now paste it into Word or Google Docs.');
+            } catch (err) {
+                alert('❌ Failed to copy. Please manually select and copy the table.');
+            }
+
+            window.getSelection().removeAllRanges();
+        }
+
+        function downloadHTML() {
+            const template = templates[selectedTemplate];
+            const tableHTML = document.getElementById('tableContainer').innerHTML;
+            
+            const fullHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${template.name}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #f093fb;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f093fb;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #fef5f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>${template.name}</h1>
+    ${tableHTML}
+</body>
+</html>`;
+
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'joint_display.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

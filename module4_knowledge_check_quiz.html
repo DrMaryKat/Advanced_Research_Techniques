@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4 Knowledge Check Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4facfe;
+        }
+
+        h1 {
+            color: #4facfe;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196F3;
+        }
+
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .question-container {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 5px solid #4facfe;
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            color: #4facfe;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .options {
+            margin-left: 10px;
+        }
+
+        .option {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option:hover {
+            border-color: #4facfe;
+            background: #f0f9ff;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .option.selected {
+            border-color: #4facfe;
+            background: #f0f9ff;
+        }
+
+        .option.correct {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            border-left: 5px solid #4caf50;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            border-left: 5px solid #f44336;
+            color: #c62828;
+        }
+
+        .feedback h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: #4facfe;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #3a8ee6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .quiz-info-item {
+            text-align: center;
+        }
+
+        .quiz-info-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .quiz-info-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #4facfe;
+            margin: 20px 0;
+        }
+
+        .score-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .performance-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .badge-excellent {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .badge-good {
+            background: #b3e5fc;
+            color: #01579b;
+        }
+
+        .badge-fair {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .badge-needs-review {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .review-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 5px solid #ddd;
+        }
+
+        .review-item.correct {
+            border-left-color: #4caf50;
+        }
+
+        .review-item.incorrect {
+            border-left-color: #f44336;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .review-answer {
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        .review-answer.user {
+            color: #666;
+        }
+
+        .review-answer.correct-ans {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .quiz-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Module 4 Knowledge Check</h1>
+            <p class="subtitle">Advanced Applications</p>
+        </header>
+
+        <div class="instructions">
+            <h3>📋 Instructions</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>This quiz has <strong>10 multiple-choice questions</strong></li>
+                <li>Focus on writing, ethics, combining methods, and practical applications</li>
+                <li>Select your answer by clicking on it</li>
+                <li>Click "Submit Answer" to see if you're correct</li>
+                <li>You'll receive immediate feedback and explanations</li>
+                <li>You need <strong>80% (8/10)</strong> to pass</li>
+                <li>This is your final assessment—show what you've learned!</li>
+            </ul>
+        </div>
+
+        <div class="quiz-info">
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Question</div>
+                <div class="quiz-info-value"><span id="currentQuestion">1</span> / 10</div>
+            </div>
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Score</div>
+                <div class="quiz-info-value"><span id="currentScore">0</span> / 10</div>
+            </div>
+            <div class="quiz-info-item">
+                <div class="quiz-info-label">Percentage</div>
+                <div class="quiz-info-value"><span id="percentage">0</span>%</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="score-display" id="finalScore">0/10</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <div class="performance-badge" id="performanceBadge"></div>
+            
+            <div class="review-section">
+                <h3 style="margin-bottom: 20px; color: #4facfe;">📝 Review Your Answers</h3>
+                <div id="reviewContent"></div>
+            </div>
+
+            <div class="buttons" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="retakeQuiz()">🔄 Retake Quiz</button>
+                <button class="btn btn-secondary" onclick="window.location.href='advanced_research_training.html'">Return to Training Home →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizQuestions = [
+            {
+                question: "When writing multilevel modeling results, what must you ALWAYS report?",
+                options: [
+                    "Only the final model with all predictors",
+                    "Model building sequence (null model → random intercept → random slopes → full model) with fit statistics",
+                    "Just the p-values for your predictors",
+                    "Only the variables that were significant"
+                ],
+                correct: 1,
+                explanation: "Transparent reporting requires showing your model building process: (1) Null model with ICC, (2) Random intercept model with Level-1 predictors, (3) Test for random slopes, (4) Full model with Level-2 predictors and cross-level interactions. For each step, report: deviance, AIC/BIC, variance components (τ, σ²), and change in fit. This demonstrates systematic analysis and allows readers to evaluate your decisions. Never skip straight to the final model."
+            },
+            {
+                question: "How should you report an ICC in your results section?",
+                options: [
+                    "ICC = 0.15",
+                    "ICC = 0.15, indicating that 15% of the variance in student achievement exists between schools",
+                    "The ICC was significant at p < .001",
+                    "Schools varied significantly (ICC = 0.15)"
+                ],
+                correct: 1,
+                explanation: "Always interpret the ICC, don't just report the number. 'ICC = 0.15' tells readers 15% of total variance is between groups, meaning students in the same school are more similar than students in different schools. This justifies MLM and sets up your analysis. Context matters: ICC = .15 is large in some fields, moderate in others. Also note: ICC isn't tested for significance with a p-value; it's a descriptive partitioning of variance."
+            },
+            {
+                question: "When combining multilevel modeling WITH mixed methods, what integration opportunity exists?",
+                options: [
+                    "You can't combine them—choose one or the other",
+                    "Use qualitative data to understand WHY cross-level interactions or random slopes exist and to interpret outlier cases",
+                    "Just report MLM results quantitatively and qualitative findings separately with no connection",
+                    "Qualitative data is only useful before doing MLM, not after"
+                ],
+                correct: 1,
+                explanation: "Powerful integration: Use MLM to identify patterns (Which schools show stronger effects? Where do random slopes vary?), then use qualitative data to explain mechanisms (WHY do effects differ? What's different about high-performing schools?). Example: MLM shows teacher support matters more in low-SES schools (cross-level interaction); interviews reveal why—compensatory role. Also investigate outlier schools: positive deviants performing above prediction or negative deviants underperforming. Qual explains what MLM can't."
+            },
+            {
+                question: "What is the most important ethical consideration unique to multilevel research?",
+                options: [
+                    "Getting informed consent from participants",
+                    "Protecting confidentiality at BOTH individual and group levels, avoiding disclosure of school/organization identities",
+                    "Paying participants fairly",
+                    "Using proper statistical software"
+                ],
+                correct: 1,
+                explanation: "Multilevel data involves nested privacy concerns. Even if you de-identify individuals, reporting detailed characteristics of small groups (e.g., 'School A: rural, 200 students, 90% low-income') may allow identification. Risks: (1) School reputational harm if portrayed negatively, (2) Within-school identification if characteristics are unique, (3) Stigmatization of entire groups. Solutions: Aggregate categories, mask details, get organizational consent, consider broader reporting (district level), use pseudonyms thoughtfully."
+            },
+            {
+                question: "In a mixed-methods dissertation, how should you structure Chapter 4 (Results)?",
+                options: [
+                    "Quantitative results first, then qualitative results, with no integration until Chapter 5",
+                    "Present integrated findings organized by research question, with joint displays showing both data types together",
+                    "Alternate between quantitative and qualitative randomly",
+                    "Only present quantitative results in Chapter 4, save qualitative for Chapter 5"
+                ],
+                correct: 1,
+                explanation: "Best practice: Organize by research question, integrating within each section. Example structure: RQ1: What factors predict retention? (Quant findings → Qual findings → Joint display → Integrated interpretation). This shows true mixed-methods analysis, not two separate studies. Alternative: Strand-by-strand IF designs are sequential and one truly informs the other. But even then, Chapter 5 should deeply integrate. Joint displays in Chapter 4 are the hallmark of quality mixed-methods dissertations."
+            },
+            {
+                question: "What is the best way to write about qualitative findings in a mixed-methods study?",
+                options: [
+                    "Include every quote from every participant",
+                    "Select exemplar quotes strategically to illustrate themes, with integration showing how they relate to quantitative patterns",
+                    "Summarize themes with no direct quotes",
+                    "Present quotes in an appendix only"
+                ],
+                correct: 1,
+                explanation: "In mixed methods, qualitative data serves a specific purpose relative to quantitative findings. Select quotes that: (1) Illustrate themes that help explain quant results, (2) Represent the range of perspectives (typical and variant), (3) Add depth or mechanism not captured quantitatively, (4) Connect to patterns in joint displays. Don't overwhelm with quotes—be strategic. Each quote should earn its space by advancing understanding. Integration matters more than exhaustive reporting."
+            },
+            {
+                question: "If you're combining multilevel modeling with qualitative case studies, what sampling strategy makes most sense for the qualitative phase?",
+                options: [
+                    "Random sampling from all Level-2 units",
+                    "Purposeful sampling of outlier cases—those performing above/below MLM predictions or showing unusual patterns",
+                    "Only sampling the largest Level-2 units",
+                    "Sampling until you reach data saturation in one case"
+                ],
+                correct: 1,
+                explanation: "Use MLM results to guide strategic qualitative sampling. Target: (1) Positive deviants (high achievement despite risk factors—what's working?), (2) Negative deviants (low achievement despite advantages—what barriers?), (3) Typical cases (performing as predicted—confirming mechanisms), (4) Maximum variation (test generalizability of explanations). This purposeful approach leverages quantitative patterns to inform deep qualitative understanding. You're not just sampling randomly—you're investigating puzzles the numbers raised."
+            },
+            {
+                question: "When should you use grand-mean centering vs. group-mean centering in MLM?",
+                options: [
+                    "Always use grand-mean centering—it's simpler",
+                    "Use grand-mean centering for Level-2 variables; use group-mean centering for Level-1 variables when you want to separate within-group from between-group effects",
+                    "Use whichever produces significant results",
+                    "Centering doesn't matter—results will be the same"
+                ],
+                correct: 1,
+                explanation: "Grand-mean centering (subtract overall mean): Makes intercept = expected Y when X is average. Use for all Level-2 variables. Can use for Level-1 if within and between effects are similar. Group-mean centering (subtract group mean): Separates WITHIN-group effects from BETWEEN-group effects. Essential when individual and contextual effects differ (e.g., individual SES vs. school-average SES may have different effects). Choice affects interpretation fundamentally—document and justify your decision."
+            },
+            {
+                question: "What is the main ethical challenge in mixed-methods research?",
+                options: [
+                    "Quantitative and qualitative methods have different ethical standards that may conflict",
+                    "You need double the IRB approval",
+                    "Participants don't understand mixed methods",
+                    "It's unethical to use both methods on the same participants"
+                ],
+                correct: 0,
+                explanation: "Ethical tension: Quantitative approaches emphasize standardization, anonymity, minimal researcher-participant relationship. Qualitative approaches emphasize trust, relationship, deep engagement, often with known identities. In mixed methods: Do you tell survey participants their data might inform interview selection? Do you integrate data in ways that might reveal identities? How do you handle divergent findings that might harm a group? Solution: Transparent consent about full study design, careful de-identification in integration, reflexivity about which findings to privilege when they conflict."
+            },
+            {
+                question: "What should you do if your multilevel model shows that a predictor's effect varies significantly across groups (significant random slope)?",
+                options: [
+                    "Ignore it and report the average effect only",
+                    "Explore what Level-2 characteristics explain the variation through cross-level interactions, and potentially use qualitative methods to understand mechanisms",
+                    "Remove that predictor from your model",
+                    "Report it but don't try to explain it"
+                ],
+                correct: 1,
+                explanation: "Significant random slopes (τ₁₁ > 0) are gold—they reveal that a relationship differs by context. Next steps: (1) Add cross-level interactions to test whether Level-2 variables (school poverty, principal experience) explain the variation. (2) If still unexplained variance, use qualitative methods to investigate: Interview principals/teachers in schools where effects are strong vs. weak. What's different? This is where mixed methods shines—explaining variance that remains after statistical modeling. Don't leave random slopes unexplored."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            renderQuestion();
+            updateProgress();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('quizContainer');
+            const question = quizQuestions[currentQuestionIndex];
+            
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">Question ${currentQuestionIndex + 1} of 10</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options" id="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                <input type="radio" name="answer" id="option${index}" value="${index}">
+                                <label for="option${index}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="buttons">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${currentQuestionIndex === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Previous
+                        </button>
+                        <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()">
+                            Submit Answer
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                selectOption(userAnswers[currentQuestionIndex].selected);
+                showFeedback(userAnswers[currentQuestionIndex].selected === question.correct);
+            }
+
+            updateProgress();
+        }
+
+        function selectOption(index) {
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            document.getElementById(`option${index}`).checked = true;
+        }
+
+        function submitAnswer() {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            
+            if (!selected) {
+                alert('Please select an answer before submitting.');
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.value);
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = selectedIndex === question.correct;
+
+            if (userAnswers[currentQuestionIndex] === undefined) {
+                userAnswers[currentQuestionIndex] = {
+                    selected: selectedIndex,
+                    correct: isCorrect
+                };
+                
+                if (isCorrect) {
+                    score++;
+                }
+            }
+
+            showFeedback(isCorrect);
+            updateProgress();
+        }
+
+        function showFeedback(isCorrect) {
+            const question = quizQuestions[currentQuestionIndex];
+            const feedback = document.getElementById('feedback');
+            const submitBtn = document.getElementById('submitBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const options = document.querySelectorAll('.option');
+
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    opt.classList.add('correct');
+                } else if (index === parseInt(document.querySelector('input[name="answer"]:checked').value) && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = `
+                <h4>${isCorrect ? '✅ Correct!' : '❌ Incorrect'}</h4>
+                <p><strong>Explanation:</strong> ${question.explanation}</p>
+            `;
+
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'inline-block';
+            nextBtn.textContent = currentQuestionIndex === 9 ? 'View Results →' : 'Next →';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < 9) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / 10) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('percentage').textContent = Math.round((score / 10) * 100);
+        }
+
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = (score / 10) * 100;
+            
+            document.getElementById('finalScore').textContent = `${score}/10`;
+            
+            let message, badge, badgeClass;
+            if (percentage >= 90) {
+                message = "Outstanding! You're ready to apply advanced research methods in your dissertation!";
+                badge = "🌟 Excellent";
+                badgeClass = "badge-excellent";
+            } else if (percentage >= 80) {
+                message = "Great job! You've successfully completed the advanced research training!";
+                badge = "✅ Passed";
+                badgeClass = "badge-good";
+            } else if (percentage >= 70) {
+                message = "Good effort! Review writing, ethics, and integration strategies.";
+                badge = "📚 Good";
+                badgeClass = "badge-fair";
+            } else {
+                message = "Review Module 4 content on reporting, ethics, and combining methods.";
+                badge = "📖 Needs Review";
+                badgeClass = "badge-needs-review";
+            }
+
+            document.getElementById('scoreMessage').textContent = message;
+            const badgeElement = document.getElementById('performanceBadge');
+            badgeElement.textContent = badge;
+            badgeElement.className = 'performance-badge ' + badgeClass;
+
+            generateReview();
+        }
+
+        function generateReview() {
+            const reviewContent = document.getElementById('reviewContent');
+            let html = '';
+
+            quizQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer && userAnswer.correct;
+                
+                html += `
+                    <div class="review-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="review-question">
+                            <strong>Question ${index + 1}:</strong> ${question.question}
+                        </div>
+                        <div class="review-answer user">
+                            <strong>Your answer:</strong> ${question.options[userAnswer.selected]}
+                            ${isCorrect ? '✅' : '❌'}
+                        </div>
+                        ${!isCorrect ? `
+                            <div class="review-answer correct-ans">
+                                <strong>Correct answer:</strong> ${question.options[question.correct]}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            reviewContent.innerHTML = html;
+        }
+
+        function retakeQuiz() {
+            document.getElementById('quizContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>

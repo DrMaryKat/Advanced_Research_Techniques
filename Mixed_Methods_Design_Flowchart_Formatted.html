@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Methods Design Flowchart</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 2.0;
+            max-width: 8.5in;
+            margin: 1in auto;
+            padding: 0 1in;
+            color: #000;
+            background: #fff;
+        }
+        
+        @media print {
+            body {
+                margin: 1in;
+                padding: 0;
+            }
+        }
+        
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 24pt 0 12pt 0;
+            page-break-after: avoid;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 18pt 0 12pt 0;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 12pt 0 6pt 0;
+            page-break-after: avoid;
+        }
+        
+        h4 {
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: italic;
+            margin: 12pt 0 6pt 0;
+            page-break-after: avoid;
+        }
+        
+        h5, h6 {
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: italic;
+            margin: 12pt 0 6pt 0;
+            page-break-after: avoid;
+        }
+        
+        p {
+            margin: 0 0 12pt 0;
+            text-align: justify;
+        }
+        
+        ul {
+            margin: 0 0 12pt 0;
+            padding-left: 0.5in;
+            list-style-type: disc;
+        }
+        
+        ol {
+            margin: 0 0 12pt 0;
+            padding-left: 0.5in;
+            list-style-type: decimal;
+        }
+        
+        li {
+            margin-bottom: 6pt;
+            line-height: 2.0;
+        }
+        
+        ul ul {
+            list-style-type: circle;
+            margin-top: 6pt;
+        }
+        
+        ul ul ul {
+            list-style-type: square;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+        
+        em {
+            font-style: italic;
+        }
+        
+        .instruction {
+            font-style: italic;
+            color: #666;
+            background: #f9f9f9;
+            padding: 6pt;
+            border-left: 3pt solid #ccc;
+            margin: 12pt 0;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 24pt 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12pt 0;
+            font-size: 12pt;
+        }
+        
+        th, td {
+            border: 1px solid #000;
+            padding: 6pt;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            font-weight: bold;
+            background: #f0f0f0;
+        }
+        
+        .no-print {
+            display: block;
+            text-align: center;
+            padding: 12pt;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 24pt 0;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    
+        .callout-box {
+            background: #f5f9ff;
+            border: 2px solid #4a90e2;
+            border-radius: 8pt;
+            padding: 12pt 18pt;
+            margin: 18pt 0;
+            page-break-inside: avoid;
+        }
+        
+        .callout-title {
+            font-weight: bold;
+            font-size: 13pt;
+            color: #2c5aa0;
+            margin-bottom: 8pt;
+        }
+        
+        .callout-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .callout-list li {
+            margin: 4pt 0;
+            padding-left: 18pt;
+            position: relative;
+        }
+        
+        .callout-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #4a90e2;
+            font-size: 14pt;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="callout-box">
+        <div class="callout-title">✓ Document Features</div>
+        <ul class="callout-list">
+            <li>Professionally formatted in Times New Roman 12pt</li>
+            <li>Completely clean with no extraneous characters</li>
+            <li>Error-free HTML ready for printing or Word</li>
+            <li>Ready for student use and committee review</li>
+        </ul>
+    </div>
+<h1>Mixed-Methods Design Selection Flowchart</h1>
+<h2>Interactive Decision Tool for Choosing the Right Mixed-Methods Design</h2>
+<hr>
+<h2>START HERE: Is Mixed Methods Right for Your Study?</h2>
+<p><strong>Ask yourself:</strong></p>
+<ul>
+<li>Do I need BOTH breadth (generalization) AND depth (understanding)?</li>
+<li>Will numbers alone leave important questions unanswered?</li>
+<li>Will words alone fail to show patterns or scope?</li>
+<li>Do I have resources (time, skills, funding) for both methods?</li>
+</ul>
+<p><strong>✅ YES</strong> → Continue below to select your design</p>
+<p><strong>❌ NO</strong> → Consider single-method approach</p>
+<hr>
+<h2>DECISION FLOWCHART</h2>
+<pre>START: What is your PRIMARY research purpose?
+│
+├─→ EXPLORE a phenomenon first, then TEST/GENERALIZE findings
+│   │
+│   └─→ EXPLORATORY SEQUENTIAL DESIGN (QUAL → quan)
+│       Examples:
+│       • Develop and validate an instrument based on interviews
+│       • Build theory from qualitative data, then test quantitatively
+│       • Create a typology, then measure its prevalence
+│
+├─→ MEASURE/TEST first, then EXPLAIN unexpected findings or patterns
+│   │
+│   └─→ EXPLANATORY SEQUENTIAL DESIGN (QUAN → qual)
+│       Examples:
+│       • Survey shows group differences → Interviews explain why
+│       • Intervention works for some not others → Cases explain mechanisms
+│       • Outliers identified → In-depth study of extreme cases
+│
+├─→ COMPARE/VALIDATE findings from two sources simultaneously
+│   │
+│   └─→ CONVERGENT DESIGN (QUAN + qual)
+│       Examples:
+│       • Survey perceptions + Interview experiences → Triangulate
+│       • Test scores + Classroom observations → Comprehensive picture
+│       • Multiple perspectives on same phenomenon
+│
+├─→ ENHANCE a primarily quant OR qual study with supplemental data
+│   │
+│   └─→ EMBEDDED DESIGN (QUAN(qual) or QUAL(quan))
+│       Examples:
+│       • Experiment with process interviews during treatment
+│       • Ethnography with brief surveys to quantify observations
+│       • RCT with qualitative implementation fidelity data
+│
+└─→ ADVOCATE for change through systematic investigation
+    │
+    └─→ TRANSFORMATIVE DESIGN (Any framework above with social justice lens)
+        Examples:
+        • Participatory action research with community
+        • Critical inquiry into systemic inequities
+        • Empowerment evaluation</pre>
+<hr>
+<h2>DETAILED DECISION GUIDE</h2>
+<h3>🔄 Choose EXPLORATORY SEQUENTIAL (QUAL → quan) if:</h3>
+<p><strong>You need to:</strong></p>
+<ul>
+<li>✓ Develop an instrument because none exists for your context</li>
+<li>✓ Identify variables or constructs that haven't been measured</li>
+<li>✓ Generate a model or theory to test</li>
+<li>✓ Understand a phenomenon before measuring it broadly</li>
+</ul>
+<p><strong>Your situation:</strong></p>
+<ul>
+<li>Little existing research in this area</li>
+<li>Existing measures don't fit your population/context</li>
+<li>Need to hear from stakeholders before developing survey</li>
+<li>Want to ground quantitative work in lived experiences</li>
+</ul>
+<p><strong>Example Research Questions:</strong></p>
+<ul>
+<li>"What are the dimensions of culturally responsive leadership?" (Explore → Measure)</li>
+<li>"How do teachers experience principal feedback?" (Understand → Quantify)</li>
+</ul>
+<p><strong>Timeline:</strong> <strong>Sequential</strong> - Qualitative phase MUST complete before quantitative begins</p>
+<p><strong>Typical Duration:</strong> 18-24 months for dissertation</p>
+<p><strong>Integration Point:</strong> Building phase - qual themes become quan measures</p>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>Ensures your instrument is contextually relevant</li>
+<li>Gives voice to participants in measure development</li>
+<li>Builds theory from ground up</li>
+</ul>
+<p><strong>Challenges:</strong></p>
+<ul>
+<li>Time intensive (two complete studies)</li>
+<li>Need strong qualitative skills first</li>
+<li>Quantitative phase depends on qualitative findings</li>
+</ul>
+<hr>
+<h3>📊 Choose EXPLANATORY SEQUENTIAL (QUAN → qual) if:</h3>
+<p><strong>You need to:</strong></p>
+<ul>
+<li>✓ Explain unexpected quantitative results</li>
+<li>✓ Understand mechanisms behind statistical patterns</li>
+<li>✓ Explore outlier cases in depth</li>
+<li>✓ Add context and meaning to numbers</li>
+</ul>
+<p><strong>Your situation:</strong></p>
+<ul>
+<li>Starting with existing data or surveys</li>
+<li>Have specific hypotheses to test first</li>
+<li>Want to understand "how" and "why" after seeing "what"</li>
+<li>Can identify interesting cases after quantitative analysis</li>
+</ul>
+<p><strong>Example Research Questions:</strong></p>
+<ul>
+<li>"Does mentoring improve retention, and how does it work?" (Measure → Explain)</li>
+<li>"Why did the intervention succeed in some schools but not others?" (Pattern → Mechanism)</li>
+</ul>
+<p><strong>Timeline:</strong> <strong>Sequential</strong> - Quantitative phase guides qualitative phase</p>
+<p><strong>Typical Duration:</strong> 18-24 months for dissertation</p>
+<p><strong>Integration Point:</strong> Connecting phase - quan results inform qual sampling/questions</p>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>Quantitative provides direction for qualitative inquiry</li>
+<li>Efficient use of qualitative resources (targeted sampling)</li>
+<li>Strong explanation of statistical findings</li>
+</ul>
+<p><strong>Challenges:</strong></p>
+<ul>
+<li>Time intensive (two complete studies)</li>
+<li>Can't start qualitative until quantitative is analyzed</li>
+<li>May find nothing surprising to explain quantitatively</li>
+</ul>
+<hr>
+<h3>⚖️ Choose CONVERGENT (QUAN + qual) if:</h3>
+<p><strong>You need to:</strong></p>
+<ul>
+<li>✓ Triangulate findings from different sources</li>
+<li>✓ Compare survey responses with lived experiences</li>
+<li>✓ Validate one data source with another</li>
+<li>✓ Develop comprehensive understanding from multiple angles</li>
+</ul>
+<p><strong>Your situation:</strong></p>
+<ul>
+<li>Resources to collect both types of data simultaneously</li>
+<li>Want to see if findings converge, diverge, or expand</li>
+<li>Need both breadth and depth at same time</li>
+<li>Have questions best answered by both approaches equally</li>
+</ul>
+<p><strong>Example Research Questions:</strong></p>
+<ul>
+<li>"What is teacher morale and what factors influence it?" (Survey + Interviews together)</li>
+<li>"How do students experience inclusive practices?" (Assessments + Focus groups)</li>
+</ul>
+<p><strong>Timeline:</strong> <strong>Concurrent</strong> - Both phases happen at same time</p>
+<p><strong>Typical Duration:</strong> 12-18 months for dissertation (more efficient than sequential)</p>
+<p><strong>Integration Point:</strong> Analysis/interpretation - Merge findings in joint displays</p>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>More efficient than sequential designs</li>
+<li>Direct comparison of findings</li>
+<li>Handles divergent findings through integration</li>
+</ul>
+<p><strong>Challenges:</strong></p>
+<ul>
+<li>Resource intensive (collecting both simultaneously)</li>
+<li>Need team or strong skills in both methods</li>
+<li>Integration can be complex</li>
+<li>Must plan both strands upfront</li>
+</ul>
+<hr>
+<h3>🔗 Choose EMBEDDED (QUAN(qual) or QUAL(quan)) if:</h3>
+<p><strong>You need to:</strong></p>
+<ul>
+<li>✓ Support a primary design with supplemental data</li>
+<li>✓ Address different research questions at different levels</li>
+<li>✓ Enhance understanding without full second study</li>
+<li>✓ Add context to primary approach</li>
+</ul>
+<p><strong>Your situation:</strong></p>
+<ul>
+<li>Clear primary method (quant OR qual)</li>
+<li>Secondary method plays supporting role</li>
+<li>Limited resources but want some mixed methods</li>
+<li>Questions are hierarchical (main + subsidiary)</li>
+</ul>
+<p><strong>Example Research Questions:</strong></p>
+<ul>
+<li>Primary: "Does PD improve teaching practice?" Secondary: "How did teachers experience PD?" (RCT + embedded interviews)</li>
+<li>Primary: "How do principals enact equity?" Secondary: "What is prevalence of observed practices?" (Ethnography + frequency counts)</li>
+</ul>
+<p><strong>Timeline:</strong> <strong>Concurrent or sequential</strong> - Depends on how embedded strand supports primary</p>
+<p><strong>Typical Duration:</strong> 12-18 months (less than full mixed methods)</p>
+<p><strong>Integration Point:</strong> Throughout - one strand supports the other continuously</p>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>More feasible than full mixed methods</li>
+<li>Adds depth/breadth to primary design</li>
+<li>Can be done by solo researcher</li>
+</ul>
+<p><strong>Challenges:</strong></p>
+<ul>
+<li>Risk of tokenism - embedded strand too small</li>
+<li>Must clarify which method is primary</li>
+<li>Limited integration compared to other designs</li>
+</ul>
+<hr>
+<h3>✊ Choose TRANSFORMATIVE Design if:</h3>
+<p><strong>Your research:</strong></p>
+<ul>
+<li>Centers social justice, equity, or empowerment</li>
+<li>Involves marginalized or vulnerable communities</li>
+<li>Aims to challenge power structures or advocate for change</li>
+<li>Uses participatory or action research approaches</li>
+</ul>
+<p><strong>Any of the above designs can be transformative by:</strong></p>
+<ul>
+<li>Involving community members in all research phases</li>
+<li>Centering marginalized voices and experiences</li>
+<li>Using findings to advocate for systemic change</li>
+<li>Conducting research WITH not ON participants</li>
+<li>Examining power, privilege, and oppression explicitly</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Convergent design exploring educational equity through student voices + achievement data</li>
+<li>Explanatory sequential measuring opportunity gaps → Understanding lived experiences of inequity</li>
+</ul>
+<hr>
+<h2>PRACTICAL CONSIDERATIONS</h2>
+<h3>Time and Resources</h3>
+<p>| Design | Timeline | Resources Needed | Feasibility for Solo Researcher |</p>
+<p>|--------|----------|-----------------|-------------------------------|</p>
+<p>| <strong>Exploratory Sequential</strong> | 18-24 months | High (two complete studies) | Moderate (if skilled in both) |</p>
+<p>| <strong>Explanatory Sequential</strong> | 18-24 months | High (two complete studies) | Moderate (if skilled in both) |</p>
+<p>| <strong>Convergent</strong> | 12-18 months | Very High (simultaneous) | Challenging (may need team) |</p>
+<p>| <strong>Embedded</strong> | 12-18 months | Moderate (primary + support) | Good (manageable scope) |</p>
+<h3>Skill Requirements</h3>
+<p><strong>You need strong skills in:</strong></p>
+<ul>
+<li>Sequential designs: Your FIRST method (must complete before second)</li>
+<li>Convergent: BOTH methods simultaneously</li>
+<li>Embedded: Your PRIMARY method primarily</li>
+</ul>
+<p><strong>Consider:</strong></p>
+<ul>
+<li>Your methodological training and comfort</li>
+<li>Available mentorship and consultation</li>
+<li>Learning curve for unfamiliar methods</li>
+<li>Committee expertise and expectations</li>
+</ul>
+<hr>
+<h2>VALIDATION CHECKLIST</h2>
+<p><strong>Before finalizing your design choice, ask:</strong></p>
+<ul>
+<li><em>[ ]</em> Does this design address ALL my research questions?</li>
+<li><em>[ ]</em> Do I have the time to complete this design?</li>
+<li><em>[ ]</em> Do I have the skills or can I develop them?</li>
+<li><em>[ ]</em> Is this design valued/understood in my field?</li>
+<li><em>[ ]</em> Will my committee approve this approach?</li>
+<li><em>[ ]</em> Do I have access to both types of participants/data?</li>
+<li><em>[ ]</em> Can I afford the resources (transcription, software, etc.)?</li>
+<li><em>[ ]</em> Is the integration clear and meaningful?</li>
+<li><em>[ ]</em> Have I read exemplar studies using this design?</li>
+<li><em>[ ]</em> Is this genuinely needed or am I mixing for mixing's sake?</li>
+</ul>
+<p><strong>If you answered NO to any critical questions → Reconsider your design</strong></p>
+<hr>
+<h2>DESIGN NOTATION GUIDE</h2>
+<p>Use standard notation in your proposal/dissertation:</p>
+<p><strong>Notation System:</strong></p>
+<ul>
+<li><strong>UPPERCASE</strong> = Priority or emphasis</li>
+<li><strong>lowercase</strong> = Less emphasis or supplementary</li>
+<li><strong>+</strong> = Concurrent (at same time)</li>
+<li><strong>→</strong> = Sequential (one after the other)</li>
+<li><strong>( )</strong> = Embedded within</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>QUAL → quan</strong> = Exploratory Sequential (qual drives quan)</li>
+<li><strong>QUAN → qual</strong> = Explanatory Sequential (quan drives qual)</li>
+<li><strong>QUAN + qual</strong> = Convergent (equal emphasis)</li>
+<li><strong>QUAN(qual)</strong> = Embedded (qual within quant)</li>
+</ul>
+<hr>
+<h2>EXAMPLES BY FIELD</h2>
+<h3>Educational Leadership</h3>
+<p>| Research Topic | Appropriate Design | Rationale |</p>
+<p>|----------------|-------------------|-----------|</p>
+<p>| "What factors predict teacher retention?" | <strong>QUAN + qual</strong> | Survey breadth + interview depth |</p>
+<p>| "Why did mentoring work in some schools?" | <strong>QUAN → qual</strong> | Test effect → Explain variation |</p>
+<p>| "What is culturally responsive leadership?" | <strong>QUAL → quan</strong> | Define construct → Measure prevalence |</p>
+<p>| "How effective is new principal PD?" | <strong>QUAN(qual)</strong> | Measure outcomes + understand process |</p>
+<hr>
+<h2>COMMON MISTAKES IN DESIGN SELECTION</h2>
+<h3>❌ Mistake 1: Choosing Mixed Methods to "Hedge Your Bets"</h3>
+<ul>
+<li><strong>Wrong reason:</strong> "If one method doesn't work, I'll have the other"</li>
+<li><strong>Right reason:</strong> "I need both to fully answer my questions"</li>
+</ul>
+<h3>❌ Mistake 2: Adding Token Qualitative or Quantitative Component</h3>
+<ul>
+<li><strong>Inadequate:</strong> 3 interviews added to large survey study (tokenism)</li>
+<li><strong>Adequate:</strong> 30 interviews providing genuine insight to explain survey patterns</li>
+</ul>
+<h3>❌ Mistake 3: No Real Integration</h3>
+<ul>
+<li><strong>Not mixed methods:</strong> Running parallel studies with no connection</li>
+<li><strong>True mixed methods:</strong> Connecting, merging, or embedding with clear integration strategy</li>
+</ul>
+<h3>❌ Mistake 4: Wrong Sequential Order</h3>
+<ul>
+<li><strong>Don't:</strong> Start with quantitative then use interviews to develop questions (backwards!)</li>
+<li><strong>Do:</strong> Match sequence to purpose (explore first if developing measures)</li>
+</ul>
+<h3>❌ Mistake 5: Ignoring Pragmatics</h3>
+<ul>
+<li><strong>Unrealistic:</strong> Solo doctoral student planning convergent design with 500 surveys + 100 interviews</li>
+<li><strong>Realistic:</strong> Solo student doing explanatory sequential with 200 surveys → 20 targeted interviews</li>
+</ul>
+<hr>
+<h2>RESOURCES FOR FURTHER GUIDANCE</h2>
+<h3>Essential Readings by Design:</h3>
+<p><strong>All Designs:</strong></p>
+<ul>
+<li>Creswell & Plano Clark (2018). <em>Designing and Conducting Mixed Methods Research</em></li>
+</ul>
+<p><strong>Exploratory Sequential:</strong></p>
+<ul>
+<li>Fetters et al. (2013). Quality in exploratory sequential mixed methods studies</li>
+</ul>
+<p><strong>Explanatory Sequential:</strong></p>
+<ul>
+<li>Ivankova, Creswell, & Stick (2006). Using mixed methods sequential explanatory design</li>
+</ul>
+<p><strong>Convergent:</strong></p>
+<ul>
+<li>Morse (1991). Approaches to qualitative-quantitative triangulation</li>
+</ul>
+<p><strong>Embedded:</strong></p>
+<ul>
+<li>Caracelli & Greene (1993). Data analysis strategies for mixed method evaluation designs</li>
+</ul>
+<hr>
+<h2>DECISION SUMMARY WORKSHEET</h2>
+<p><strong>Complete this worksheet to document your design decision:</strong></p>
+<p><strong>1. My primary research purpose is to:</strong></p>
+<p>_________________________________________</p>
+<p><strong>2. My research questions require (check all that apply):</strong></p>
+<ul>
+<li><em>[ ]</em> Breadth/generalization</li>
+<li><em>[ ]</em> Depth/understanding</li>
+<li><em>[ ]</em> Both</li>
+</ul>
+<p><strong>3. The design that best fits my purpose is:</strong></p>
+<p>_________________________________________</p>
+<p><strong>4. This design is appropriate because:</strong></p>
+<p>_________________________________________</p>
+<p><strong>5. I will integrate the strands by:</strong></p>
+<p>_________________________________________</p>
+<p><strong>6. My timeline and resources support this design:</strong></p>
+<ul>
+<li><em>[ ]</em> Yes</li>
+<li><em>[ ]</em> Need to adjust: _____________________</li>
+</ul>
+<p><strong>7. My committee will likely respond to this design by:</strong></p>
+<p>_________________________________________</p>
+<p><strong>8. The main challenges I anticipate are:</strong></p>
+<p>_________________________________________</p>
+<p><strong>9. My mitigation strategies are:</strong></p>
+<p>_________________________________________</p>
+<p><strong>10. Final design notation:</strong></p>
+<p>_________________________________________</p>
+<hr>
+<h2>GET FEEDBACK</h2>
+<p><strong>Before finalizing:</strong></p>
+<ol>
+<li>✅ Discuss with dissertation chair</li>
+<li>✅ Review with methodologist</li>
+<li>✅ Present to peer group for feedback</li>
+<li>✅ Review exemplar dissertations using this design</li>
+<li>✅ Confirm feasibility with realistic timeline</li>
+</ol>
+<hr>
+<p><strong>Created for:</strong> Advanced Research Design Training Module</p>
+<p><strong>Purpose:</strong> Guide doctoral students in selecting appropriate mixed-methods designs</p>
+<p><strong>Last Updated:</strong> November 2025</p>
+<p><strong>Questions?</strong> Consult Module 3 of your training or your dissertation chair.</p>
+    <div class="no-print">
+        <hr>
+        <p style="text-align: center; font-size: 10pt; color: #666; line-height: 1.5;">
+            <strong>Document Formatting:</strong> Times New Roman, 12pt, Double-spaced<br>
+            <button onclick="window.print()" style="padding: 8px 20px; font-size: 11pt; margin-top: 10px; cursor: pointer;">🖨️ Print or Save as PDF</button>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Research Design Training | Multilevel Modeling & Mixed Methods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: #1e3c72;
+            color: white;
+        }
+
+        main {
+            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .module {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-left: 5px solid #1e3c72;
+            border-radius: 5px;
+        }
+
+        .module h2 {
+            color: #1e3c72;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .module h3 {
+            color: #2a5298;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .module h4 {
+            color: #444;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .learning-objectives {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .learning-objectives h3 {
+            color: #1976D2;
+            margin-top: 0;
+        }
+
+        .learning-objectives ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .content-section {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .interactive-box {
+            background: #fff3e0;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .interactive-box h4 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .collapsible {
+            background-color: #2a5298;
+            color: white;
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            transition: all 0.3s;
+        }
+
+        .collapsible:hover {
+            background-color: #1e3c72;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible.active:after {
+            content: "\2212";
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .collapsible-content-inner {
+            padding: 1.5rem;
+        }
+
+        .assessment-box {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #4caf50;
+        }
+
+        .assessment-box h4 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .resource-list {
+            background: #f3e5f5;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .resource-list h4 {
+            color: #7b1fa2;
+            margin-top: 0;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            background: #1e3c72;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .button:hover {
+            background: #2a5298;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .progress-tracker {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border: 2px solid #2196F3;
+        }
+
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options label {
+            display: block;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: #f5f5f5;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-options label:hover {
+            background: #e3f2fd;
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        .feedback {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            border-left: 4px solid #f44336;
+            display: block;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .key-concept {
+            background: #fff9c4;
+            padding: 1rem;
+            border-left: 4px solid #fbc02d;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .key-concept strong {
+            color: #f57f17;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .module {
+                padding: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+        }
+
+        .example-box {
+            background: #e1f5fe;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #0277bd;
+        }
+
+        .example-box h4 {
+            color: #01579b;
+            margin-top: 0;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            padding: 1rem;
+            border-left: 4px solid #ff6f00;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .warning-box strong {
+            color: #e65100;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Advanced Research Design Training</h1>
+            <p>Complex Methods: Multilevel Modeling & Mixed-Methods Analysis</p>
+            <p style="margin-top: 1rem; font-size: 0.95rem;">For Doctoral Students in Educational Leadership & Policy Studies</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#" onclick="scrollToSection('overview'); return false;">Overview</a></li>
+                <li><a href="#" onclick="scrollToSection('module1'); return false;">Module 1</a></li>
+                <li><a href="#" onclick="scrollToSection('module2'); return false;">Module 2</a></li>
+                <li><a href="#" onclick="scrollToSection('module3'); return false;">Module 3</a></li>
+                <li><a href="#" onclick="scrollToSection('module4'); return false;">Module 4</a></li>
+                <li><a href="#" onclick="scrollToSection('resources'); return false;">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="module">
+            <h2>📚 Course Overview</h2>
+            <div class="content-section">
+                <p><strong>Target Audience:</strong> Doctoral students in Educational Leadership & Policy Studies</p>
+                <p><strong>Duration:</strong> 4-6 weeks (self-paced)</p>
+                <p><strong>Modality:</strong> Asynchronous online learning with optional synchronous support sessions</p>
+                
+                <div class="progress-tracker">
+                    <h4>Your Progress</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar">0%</div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                        Complete modules to track your progress 
+                        <button onclick="resetProgress()" style="margin-left: 10px; padding: 5px 10px; font-size: 0.8rem; background: #ff9800; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄 Reset Progress</button>
+                    </p>
+                </div>
+
+                <h3>What You'll Learn</h3>
+                <p>This training will equip you with advanced research design skills essential for conducting rigorous dissertation research. You'll master:</p>
+                <ul>
+                    <li>When and why to use complex research methods</li>
+                    <li>Multilevel modeling for nested educational data</li>
+                    <li>Mixed-methods research design and integration</li>
+                    <li>How to write about advanced methods in your dissertation</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Module 1 -->
+        <section id="module1" class="module">
+            <h2>📖 Module 1: Foundations of Advanced Research Design</h2>
+            <p><strong>Week 1</strong></p>
+
+            <div class="learning-objectives">
+                <h3>Learning Objectives</h3>
+                <p>By the end of this module, you will be able to:</p>
+                <ul>
+                    <li>Distinguish between simple and complex research designs</li>
+                    <li>Identify scenarios requiring advanced methodological approaches</li>
+                    <li>Articulate the relationship between research questions and methodological choices</li>
+                </ul>
+            </div>
+
+            <button class="collapsible">1.1 Introduction to Complex Research Problems</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>When do educational research questions require advanced methods?</h4>
+                    
+                    <p>Educational data is inherently hierarchical. Students are nested in classrooms, teachers are nested in schools, and schools are nested in districts. This structure creates dependencies in the data that traditional statistical methods cannot handle properly.</p>
+
+                    <div class="key-concept">
+                        <strong>Key Concept:</strong> Traditional regression assumes independence of observations. But students in the same classroom are more similar to each other than to students in different classrooms—they share the same teacher, curriculum, and classroom environment.
+                    </div>
+
+                    <h4>Limitations of Traditional Approaches</h4>
+                    <ul>
+                        <li><strong>Aggregation:</strong> Analyzing only school-level means loses individual student variation</li>
+                        <li><strong>Disaggregation:</strong> Treating students as independent ignores clustering effects</li>
+                        <li><strong>Single-level analysis:</strong> Cannot examine cross-level interactions (e.g., how school policies affect individual students)</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <h4>Example Scenario</h4>
+                        <p><strong>Research Question:</strong> Does a new literacy program improve student reading scores?</p>
+                        <p><strong>Why traditional methods fall short:</strong> Students within the same classroom share the same teacher implementation, classroom resources, and peer interactions. Simply comparing program vs. non-program students ignores these shared influences.</p>
+                        <p><strong>Advanced method needed:</strong> Multilevel modeling to account for student clustering within classrooms while examining program effects.</p>
+                    </div>
+
+                    <div class="interactive-box">
+                        <h4>💡 Reflection Activity</h4>
+                        <p><strong>Think about your research:</strong> Does your research involve nested data structures? List the levels in your data (e.g., students, classrooms, schools). How might ignoring this structure affect your conclusions?</p>
+                        <textarea style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 5px; border: 1px solid #ddd;" rows="4" placeholder="Type your reflection here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">1.2 The Evolution of Research Design in Education</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>From Simple to Complex: A Historical Perspective</h4>
+                    
+                    <p>Educational research methodology has evolved significantly over the past several decades:</p>
+
+                    <ul>
+                        <li><strong>1960s-1970s:</strong> Dominance of experimental design and ANOVA</li>
+                        <li><strong>1980s:</strong> Recognition of hierarchical data structure problems; development of HLM</li>
+                        <li><strong>1990s:</strong> "Paradigm wars" between quantitative and qualitative researchers</li>
+                        <li><strong>2000s:</strong> Emergence of mixed methods as legitimate "third paradigm"</li>
+                        <li><strong>2010s-Present:</strong> Integration of advanced methods, emphasis on complexity</li>
+                    </ul>
+
+                    <div class="key-concept">
+                        <strong>Current Trends:</strong> Educational leadership research increasingly demands sophisticated methods that can handle real-world complexity—multilevel structures, multiple data sources, and mixed methods that honor both numbers and narratives.
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">1.3 Matching Methods to Questions</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Decision Framework for Method Selection</h4>
+                    
+                    <p>Choosing the right method depends on three key considerations:</p>
+
+                    <ol>
+                        <li><strong>Research Question Type</strong>
+                            <ul>
+                                <li>Descriptive: What is happening?</li>
+                                <li>Relational: What is associated with what?</li>
+                                <li>Causal: What causes what?</li>
+                                <li>Explanatory: Why and how does it happen?</li>
+                            </ul>
+                        </li>
+                        <li><strong>Data Structure</strong>
+                            <ul>
+                                <li>Is your data hierarchical/nested?</li>
+                                <li>Do you have repeated measures?</li>
+                                <li>Are there natural groupings?</li>
+                            </ul>
+                        </li>
+                        <li><strong>Epistemological Alignment</strong>
+                            <ul>
+                                <li>What counts as evidence in your field?</li>
+                                <li>Are you seeking generalization or deep understanding?</li>
+                                <li>Do you value multiple perspectives?</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="interactive-box">
+                        <h4>🎯 Practice Activity: Method Matching</h4>
+                        <p>For each research question below, identify which advanced method(s) would be most appropriate and why:</p>
+                        
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p><strong>Scenario 1:</strong> How do principal leadership styles affect teacher retention across urban, suburban, and rural districts?</p>
+                                <p><em>Consider:</em> What are the levels of analysis? What type of data would you need?</p>
+                            </div>
+                            
+                            <div class="quiz-question">
+                                <p><strong>Scenario 2:</strong> What factors contribute to successful implementation of restorative justice practices in high schools?</p>
+                                <p><em>Consider:</em> Can numbers alone capture this complexity?</p>
+                            </div>
+                            
+                            <div class="quiz-question">
+                                <p><strong>Scenario 3:</strong> Do students in smaller class sizes perform better on standardized tests, and does this effect vary by school poverty level?</p>
+                                <p><em>Consider:</em> What's nested? What's a cross-level interaction?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-box">
+                <h4>✅ Module 1 Assessment</h4>
+                <p><strong>Knowledge Check Quiz:</strong> Test your understanding of foundational concepts (10 questions)</p>
+                <a href="module1_knowledge_check_quiz.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">Take Quiz</a>
+                
+                <p style="margin-top: 1rem;"><strong>Reflection Prompt:</strong> "Describe a research problem in your area of interest that might require advanced methods. Why would simple methods be insufficient?"</p>
+                <button class="button" onclick="showSubmitInfo()">Submit Reflection</button>
+                
+                <button class="button" onclick="markModuleComplete(1)" style="background: #4caf50;">Mark Module 1 Complete</button>
+            </div>
+        </section>
+
+        <!-- Module 2 -->
+        <section id="module2" class="module">
+            <h2>📊 Module 2: Multilevel Modeling Fundamentals</h2>
+            <p><strong>Week 2</strong></p>
+
+            <div class="learning-objectives">
+                <h3>Learning Objectives</h3>
+                <p>By the end of this module, you will be able to:</p>
+                <ul>
+                    <li>Explain the conceptual foundations of multilevel modeling</li>
+                    <li>Identify appropriate use cases for hierarchical linear models</li>
+                    <li>Interpret basic multilevel model outputs</li>
+                </ul>
+            </div>
+
+            <button class="collapsible">2.1 Understanding Nested Data Structures</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>What is Hierarchical Data?</h4>
+                    
+                    <p>Hierarchical or nested data occurs when observations are grouped within higher-level units. In educational research, this is everywhere:</p>
+
+                    <ul>
+                        <li>Students (Level 1) within Classrooms (Level 2)</li>
+                        <li>Teachers (Level 1) within Schools (Level 2)</li>
+                        <li>Students within Classrooms within Schools (three levels!)</li>
+                        <li>Repeated measures over time within individuals</li>
+                    </ul>
+
+                    <div class="key-concept">
+                        <strong>The Core Problem:</strong> Observations within the same group are more similar to each other than to observations in different groups. This violates the independence assumption of traditional statistics.
+                    </div>
+
+                    <h4>Intraclass Correlation (ICC): Why It Matters</h4>
+                    
+                    <p>The ICC tells us how much of the total variation in an outcome is due to differences between groups versus differences within groups.</p>
+
+                    <div class="example-box">
+                        <h4>Interpreting ICC</h4>
+                        <p><strong>ICC = 0.15 for student achievement</strong></p>
+                        <p>This means 15% of the variation in student test scores is due to differences between schools, while 85% is due to differences among students within schools.</p>
+                        <p><strong>What this tells us:</strong> School matters! Students in the same school are more similar to each other than to students in other schools. We must account for this in our analysis.</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Common Mistake:</strong> Researchers sometimes ignore small ICCs (like 0.05). But even a 5% ICC means your standard errors are wrong and your p-values are too optimistic. Always use multilevel modeling with nested data.
+                    </div>
+
+                    <div class="interactive-box">
+                        <h4>💡 Conceptual Check</h4>
+                        <p>Imagine measuring student motivation across 50 schools. Which scenario suggests a higher ICC?</p>
+                        <div style="margin-left: 1rem;">
+                            <p><strong>Scenario A:</strong> Each school has widely varying motivation levels among its students</p>
+                            <p><strong>Scenario B:</strong> Each school's students have similar motivation levels, but schools differ greatly from each other</p>
+                        </div>
+                        <p style="margin-top: 0.5rem;"><em>Answer: Scenario B has higher ICC—more between-school variation relative to within-school variation.</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">2.2 Introduction to Multilevel Models</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Fixed vs. Random Effects</h4>
+                    
+                    <p>Understanding this distinction is crucial for multilevel modeling:</p>
+
+                    <ul>
+                        <li><strong>Fixed Effects:</strong> Parameters we assume are the same across all groups (or explicitly model as different). Example: The average effect of study time on test scores.</li>
+                        <li><strong>Random Effects:</strong> Parameters we allow to vary across groups, treating group differences as random variation. Example: Each school has its own intercept (average achievement level).</li>
+                    </ul>
+
+                    <div class="key-concept">
+                        <strong>Key Insight:</strong> Multilevel models let us estimate both—overall average effects (fixed) AND variation around those averages (random). This captures both the forest and the trees.
+                    </div>
+
+                    <h4>Model Equations: Two-Level Example</h4>
+                    
+                    <p><strong>Research Question:</strong> How does student SES predict achievement, and does this relationship vary by school?</p>
+
+                    <p><strong>Level 1 (Student level):</strong></p>
+                    <p style="margin-left: 2rem; font-family: monospace;">Achievement<sub>ij</sub> = β<sub>0j</sub> + β<sub>1j</sub>(SES<sub>ij</sub>) + r<sub>ij</sub></p>
+                    
+                    <p><strong>Level 2 (School level):</strong></p>
+                    <p style="margin-left: 2rem; font-family: monospace;">β<sub>0j</sub> = γ<sub>00</sub> + u<sub>0j</sub></p>
+                    <p style="margin-left: 2rem; font-family: monospace;">β<sub>1j</sub> = γ<sub>10</sub> + u<sub>1j</sub></p>
+
+                    <div class="example-box">
+                        <h4>Breaking Down the Equations</h4>
+                        <ul>
+                            <li><strong>β<sub>0j</sub>:</strong> School j's intercept (average achievement when SES=0)</li>
+                            <li><strong>β<sub>1j</sub>:</strong> School j's slope (SES-achievement relationship)</li>
+                            <li><strong>γ<sub>00</sub>:</strong> Grand mean achievement across all schools</li>
+                            <li><strong>γ<sub>10</sub>:</strong> Average SES effect across all schools</li>
+                            <li><strong>u<sub>0j</sub>:</strong> School j's deviation from grand mean (random intercept)</li>
+                            <li><strong>u<sub>1j</sub>:</strong> School j's deviation from average slope (random slope)</li>
+                        </ul>
+                    </div>
+
+                    <h4>Centering Decisions</h4>
+                    
+                    <p>Where you "center" your predictors (set the zero point) changes interpretation:</p>
+
+                    <ul>
+                        <li><strong>Grand-Mean Centering:</strong> Subtract the overall mean. Intercept = expected outcome for someone at the overall mean.</li>
+                        <li><strong>Group-Mean Centering:</strong> Subtract each group's mean. Intercept = expected outcome for someone at their group's mean. Separates within-group and between-group effects.</li>
+                        <li><strong>No Centering:</strong> Use raw scores. Intercept = expected outcome when X=0 (often meaningless).</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Critical Decision:</strong> Centering choice affects interpretation and can change your substantive conclusions. Always justify your centering decision based on your research question.
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">2.3 Building and Interpreting Multilevel Models</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Progressive Model Building Approach</h4>
+                    
+                    <p>Build models sequentially to understand sources of variation:</p>
+
+                    <h4>Step 1: Null Model (Unconditional Model)</h4>
+                    <p style="margin-left: 2rem; font-family: monospace;">Achievement<sub>ij</sub> = γ<sub>00</sub> + u<sub>0j</sub> + r<sub>ij</sub></p>
+                    <p><strong>Purpose:</strong> Partition variance. Calculate ICC. Do we need multilevel modeling?</p>
+
+                    <h4>Step 2: Random Intercept Model</h4>
+                    <p>Add Level-1 predictors but keep intercepts random:</p>
+                    <p style="margin-left: 2rem; font-family: monospace;">Achievement<sub>ij</sub> = γ<sub>00</sub> + γ<sub>10</sub>(SES<sub>ij</sub>) + u<sub>0j</sub> + r<sub>ij</sub></p>
+                    <p><strong>Purpose:</strong> Control for student characteristics while accounting for school clustering.</p>
+
+                    <h4>Step 3: Random Slopes Model</h4>
+                    <p>Allow relationships to vary by school:</p>
+                    <p style="margin-left: 2rem; font-family: monospace;">Achievement<sub>ij</sub> = γ<sub>00</sub> + γ<sub>10</sub>(SES<sub>ij</sub>) + u<sub>0j</sub> + u<sub>1j</sub>(SES<sub>ij</sub>) + r<sub>ij</sub></p>
+                    <p><strong>Purpose:</strong> Test if SES-achievement relationship differs across schools.</p>
+
+                    <h4>Step 4: Cross-Level Interactions</h4>
+                    <p>Explain why slopes vary by adding Level-2 predictors:</p>
+                    <p style="margin-left: 2rem; font-family: monospace;">β<sub>1j</sub> = γ<sub>10</sub> + γ<sub>11</sub>(SchoolPoverty<sub>j</sub>) + u<sub>1j</sub></p>
+                    <p><strong>Purpose:</strong> Does school poverty moderate the SES-achievement relationship?</p>
+
+                    <div class="example-box">
+                        <h4>Sample Interpretation</h4>
+                        <p><strong>Finding:</strong> γ<sub>11</sub> = -0.15, p < .01</p>
+                        <p><strong>Interpretation:</strong> "The positive relationship between student SES and achievement is weaker in high-poverty schools. For every 10-percentage-point increase in school poverty rate, the SES slope decreases by 0.015 points."</p>
+                        <p><strong>Substantive meaning:</strong> In high-poverty schools, individual student SES matters less for achievement—suggesting these schools may have compensatory programs or shared challenges that diminish individual advantages.</p>
+                    </div>
+
+                    <div class="interactive-box">
+                        <h4>🎯 Interpretation Practice</h4>
+                        <p>Given these results from a study of teacher effectiveness:</p>
+                        <ul>
+                            <li>γ<sub>00</sub> = 75.2 (grand mean student score)</li>
+                            <li>γ<sub>10</sub> = 3.5 (effect of teacher experience in years)</li>
+                            <li>τ<sub>00</sub> = 45.2 (between-school variance in intercepts)</li>
+                            <li>σ² = 120.5 (within-school variance)</li>
+                        </ul>
+                        <p><strong>Questions:</strong></p>
+                        <ol>
+                            <li>What is the ICC?</li>
+                            <li>How do you interpret the teacher experience effect?</li>
+                            <li>What does the between-school variance tell you?</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">2.4 Applications in Educational Leadership</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Real-World Applications</h4>
+                    
+                    <div class="example-box">
+                        <h4>School Effectiveness Research</h4>
+                        <p><strong>Question:</strong> Which school practices improve student outcomes?</p>
+                        <p><strong>MLM Approach:</strong></p>
+                        <ul>
+                            <li>Level 1: Student characteristics (SES, prior achievement)</li>
+                            <li>Level 2: School practices (instructional leadership, professional development)</li>
+                            <li>Outcome: Achievement gains</li>
+                        </ul>
+                        <p><strong>Advantage:</strong> Controls for student composition while identifying school-level factors that matter.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Teacher Evaluation Studies</h4>
+                        <p><strong>Question:</strong> How reliable are teacher value-added scores?</p>
+                        <p><strong>MLM Approach:</strong></p>
+                        <ul>
+                            <li>Level 1: Students within classrooms</li>
+                            <li>Level 2: Teacher effects (random)</li>
+                            <li>Level 3: School effects</li>
+                        </ul>
+                        <p><strong>Advantage:</strong> Separates teacher effects from school and student factors.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Policy Implementation Research</h4>
+                        <p><strong>Question:</strong> Does a state policy affect districts differently?</p>
+                        <p><strong>MLM Approach:</strong></p>
+                        <ul>
+                            <li>Level 1: Districts within states</li>
+                            <li>Level 2: State characteristics and policies</li>
+                            <li>Cross-level: State policy × district capacity</li>
+                        </ul>
+                        <p><strong>Advantage:</strong> Tests whether policy effects depend on local context.</p>
+                    </div>
+
+                    <div class="resource-list">
+                        <h4>📚 Case Study Library</h4>
+                        <p>Review these published studies to see multilevel modeling in action:</p>
+                        <ul>
+                            <li>Bryk & Raudenbush (1992) - Catholic school effects on achievement</li>
+                            <li>Lee & Smith (2001) - School restructuring and equity</li>
+                            <li>Rowan, Correnti, & Miller (2002) - Opportunity to learn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-box">
+                <h4>✅ Module 2 Assessment</h4>
+                
+                <p><strong>Knowledge Check Quiz:</strong> Test your understanding of multilevel modeling (10 questions)</p>
+                <a href="module2_knowledge_check_quiz.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">Take Quiz</a>
+                
+                <p style="margin-top: 1rem;"><strong>Option 1: Concept Mapping</strong></p>
+                <p>Create a visual representation showing relationships between: nested data, ICC, fixed effects, random effects, variance partitioning, cross-level interactions</p>
+                <button class="button" onclick="showAssessmentInfo('Create your concept map using tools like Lucidchart, draw.io, or hand-drawn. Upload to your LMS or email to your instructor.')">Concept Mapping Instructions</button>
+                
+                <p style="margin-top: 1rem;"><strong>Option 2: Interpretation Practice</strong></p>
+                <p>Use the ICC Calculator to practice interpreting variance components and model output</p>
+                <a href="icc_calculator.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">ICC Calculator & Interpreter</a>
+                
+                <p style="margin-top: 1rem;"><strong>Discussion Forum</strong></p>
+                <p>Share a potential multilevel modeling application from your own research</p>
+                <button class="button" onclick="showAssessmentInfo('Join the discussion on your course LMS discussion board')">Join Discussion</button>
+                
+                <button class="button" onclick="markModuleComplete(2)" style="background: #4caf50;">Mark Module 2 Complete</button>
+            </div>
+        </section>
+
+        <!-- Module 3 -->
+        <section id="module3" class="module">
+            <h2>🔄 Module 3: Mixed-Methods Analysis</h2>
+            <p><strong>Week 3</strong></p>
+
+            <div class="learning-objectives">
+                <h3>Learning Objectives</h3>
+                <p>By the end of this module, you will be able to:</p>
+                <ul>
+                    <li>Articulate the purposes and types of mixed-methods designs</li>
+                    <li>Design integration strategies for qualitative and quantitative data</li>
+                    <li>Evaluate the quality and rigor of mixed-methods studies</li>
+                </ul>
+            </div>
+
+            <button class="collapsible">3.1 Philosophical Foundations</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Why Mix Methods?</h4>
+                    
+                    <p>Mixed methods research combines quantitative and qualitative approaches to provide a more complete understanding of research problems. The rationale is simple: some questions require both numbers and narratives.</p>
+
+                    <div class="key-concept">
+                        <strong>Core Principle:</strong> The combination provides insights that neither approach alone could achieve. Quantitative data reveals patterns and relationships; qualitative data explains the "how" and "why" behind those patterns.
+                    </div>
+
+                    <h4>Paradigmatic Perspectives</h4>
+                    
+                    <ul>
+                        <li><strong>Pragmatism:</strong> Use whatever methods work best for your question. Truth is what works in practice.</li>
+                        <li><strong>Dialectical stance:</strong> Embrace the tension between paradigms. Let quantitative and qualitative findings dialogue and potentially contradict.</li>
+                        <li><strong>Critical realism:</strong> Reality exists but is perceived through different lenses. Multiple methods reveal different aspects of that reality.</li>
+                    </ul>
+
+                    <div class="interactive-box">
+                        <h4>💡 Reflection: Your Paradigmatic Position</h4>
+                        <p>Where do you fall on the paradigmatic continuum? How might your epistemological beliefs shape your approach to mixed methods?</p>
+                        <textarea style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; border-radius: 5px; border: 1px solid #ddd;" rows="3" placeholder="Reflect on your philosophical stance..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">3.2 Mixed-Methods Design Types</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Core Mixed-Methods Designs</h4>
+                    
+                    <div class="example-box">
+                        <h4>1. Convergent Design (Parallel Design)</h4>
+                        <p><strong>Structure:</strong> QUAN + QUAL → Merge and Compare</p>
+                        <p><strong>Purpose:</strong> Corroboration, triangulation, complementarity</p>
+                        <p><strong>Timing:</strong> Data collected concurrently</p>
+                        <p><strong>Integration:</strong> During analysis and interpretation</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>Example in Educational Leadership:</strong></p>
+                        <p>Research Question: What factors influence principal job satisfaction?</p>
+                        <ul>
+                            <li><strong>Quantitative:</strong> Survey 500 principals on job satisfaction, work conditions, and organizational support</li>
+                            <li><strong>Qualitative:</strong> Interview 30 principals about their experiences and perceptions</li>
+                            <li><strong>Integration:</strong> Compare survey patterns with interview themes. Do they converge? Diverge? Expand understanding?</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>2. Explanatory Sequential Design</h4>
+                        <p><strong>Structure:</strong> QUAN → qual → Interpretation</p>
+                        <p><strong>Purpose:</strong> Explain unexpected or significant quantitative results</p>
+                        <p><strong>Timing:</strong> Sequential (quantitative first)</p>
+                        <p><strong>Integration:</strong> Connecting quantitative results to qualitative sampling and questions</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>Example in Educational Leadership:</strong></p>
+                        <p>Research Question: Why did a leadership development program work in some districts but not others?</p>
+                        <ul>
+                            <li><strong>Phase 1 (QUAN):</strong> Survey all participating districts. Statistical analysis reveals Program X was highly effective in rural districts but not urban districts.</li>
+                            <li><strong>Phase 2 (qual):</strong> Case studies in high-performing rural and low-performing urban districts to explain the difference</li>
+                            <li><strong>Integration:</strong> Qualitative findings explain the quantitative pattern (e.g., rural districts had stronger existing collaborative cultures)</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>3. Exploratory Sequential Design</h4>
+                        <p><strong>Structure:</strong> QUAL → quan → Interpretation</p>
+                        <p><strong>Purpose:</strong> Develop an instrument, create a typology, test emerging theory</p>
+                        <p><strong>Timing:</strong> Sequential (qualitative first)</p>
+                        <p><strong>Integration:</strong> Building quantitative phase from qualitative insights</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>Example in Educational Leadership:</strong></p>
+                        <p>Research Question: What are the dimensions of culturally responsive school leadership?</p>
+                        <ul>
+                            <li><strong>Phase 1 (QUAL):</strong> Interviews with principals in diverse schools identify key practices and beliefs</li>
+                            <li><strong>Phase 2 (quan):</strong> Develop and validate a survey instrument based on interview themes. Administer to large sample to confirm factor structure</li>
+                            <li><strong>Integration:</strong> Quantitative validation tests the generalizability of qualitative findings</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>4. Embedded Design</h4>
+                        <p><strong>Structure:</strong> QUAN(qual) or QUAL(quan)</p>
+                        <p><strong>Purpose:</strong> Enhance primary design with supplemental data</p>
+                        <p><strong>Timing:</strong> Concurrent or sequential</p>
+                        <p><strong>Integration:</strong> Supportive—one strand supports the other</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>Example in Educational Leadership:</strong></p>
+                        <p>Research Question: Does a new teacher evaluation system improve instruction?</p>
+                        <ul>
+                            <li><strong>Primary (QUAN):</strong> Quasi-experimental design comparing test scores before/after implementation</li>
+                            <li><strong>Embedded (qual):</strong> Classroom observations and teacher interviews to understand implementation fidelity and mechanisms</li>
+                            <li><strong>Integration:</strong> Qualitative data explains quantitative outcomes and identifies moderators</li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-box">
+                        <h4>🎯 Design Selection Activity</h4>
+                        <p>For your dissertation topic, which mixed-methods design would be most appropriate? Consider:</p>
+                        <ul>
+                            <li>What is your primary purpose?</li>
+                            <li>Do you need to develop an instrument or explain patterns?</li>
+                            <li>What are your time and resource constraints?</li>
+                            <li>Which method should have priority?</li>
+                        </ul>
+                        <button class="button" onclick="showDesignInfo()">Explore Design Options</button>
+                        <a href="design_selection_wizard.html" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;">🧙 Use Design Selection Wizard</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">3.3 Integration Strategies</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>How to Actually Mix Your Methods</h4>
+                    
+                    <p>Integration is the hallmark of quality mixed methods research. It's not enough to conduct quantitative and qualitative studies side-by-side—you must genuinely combine them.</p>
+
+                    <h4>Integration Approaches</h4>
+                    
+                    <div class="key-concept">
+                        <strong>1. Merging</strong>
+                        <p>Bring quantitative and qualitative data together for comparison</p>
+                        <ul>
+                            <li>Joint displays (side-by-side tables)</li>
+                            <li>Data transformation (quantitizing qualitative or qualitizing quantitative)</li>
+                            <li>Comparing patterns across datasets</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-concept">
+                        <strong>2. Connecting</strong>
+                        <p>Results from one method inform the next phase</p>
+                        <ul>
+                            <li>Quantitative results guide qualitative sampling</li>
+                            <li>Qualitative themes shape quantitative measures</li>
+                            <li>Sequential design logic</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-concept">
+                        <strong>3. Embedding</strong>
+                        <p>One method is nested within the other</p>
+                        <ul>
+                            <li>Qualitative data collected during experiment</li>
+                            <li>Small surveys embedded in ethnography</li>
+                            <li>Process data within outcome study</li>
+                        </ul>
+                    </div>
+
+                    <h4>Joint Displays: The Gold Standard</h4>
+                    
+                    <p>Joint displays are visual representations that integrate quantitative and qualitative findings in a single table, graph, or figure.</p>
+
+                    <div class="example-box">
+                        <h4>Example Joint Display: Principal Leadership Styles</h4>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <thead style="background: #1e3c72; color: white;">
+                                <tr>
+                                    <th style="padding: 0.75rem; border: 1px solid #ddd;">Leadership Style</th>
+                                    <th style="padding: 0.75rem; border: 1px solid #ddd;">Frequency (n=100)</th>
+                                    <th style="padding: 0.75rem; border: 1px solid #ddd;">Teacher Satisfaction (M)</th>
+                                    <th style="padding: 0.75rem; border: 1px solid #ddd;">Qualitative Themes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: #f9f9f9;">
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;"><strong>Transformational</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">35%</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">4.2/5</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">"Inspirational vision," "Trust and autonomy," "Shared decision-making"</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;"><strong>Instructional</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">40%</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">3.8/5</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">"Focus on teaching," "Provides feedback," "Can feel evaluative"</td>
+                                </tr>
+                                <tr style="background: #f9f9f9;">
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;"><strong>Managerial</strong></td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">25%</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">3.2/5</td>
+                                    <td style="padding: 0.75rem; border: 1px solid #ddd;">"Efficient operations," "Clear expectations," "Limited instructional support"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 1rem;"><strong>Meta-Inference:</strong> Transformational leadership associates with highest teacher satisfaction; qualitative data reveals this stems from teachers' sense of empowerment and shared vision. Managerial style, while maintaining efficient operations, leaves teachers wanting more instructional support.</p>
+                    </div>
+
+                    <div class="resource-list">
+                        <h4>📊 Joint Display Templates</h4>
+                        <p>Access ready-to-use templates for common integration scenarios:</p>
+                        <ul>
+                            <li>Convergent findings matrix</li>
+                            <li>Case-ordered explanatory display</li>
+                            <li>Theme-by-case matrix</li>
+                            <li>Sequential explanatory framework</li>
+                        </ul>
+                        <a href="Joint_Display_Template.md" class="button" style="text-decoration: none; text-align: center; display: inline-block;" target="_blank">📄 Download Joint Display Templates</a>
+                        <a href="joint_display_builder.html" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;">🔗 Use Interactive Builder</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">3.4 Quality and Rigor in Mixed Methods</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Ensuring Quality in Mixed-Methods Research</h4>
+                    
+                    <p>Mixed-methods studies must meet quality standards for BOTH quantitative and qualitative components, PLUS integration quality.</p>
+
+                    <h4>Design Quality</h4>
+                    <ul>
+                        <li><strong>Appropriateness:</strong> Is mixed methods needed for this question?</li>
+                        <li><strong>Design selection:</strong> Is the chosen design optimal?</li>
+                        <li><strong>Strand rigor:</strong> Does each method meet its own quality standards?</li>
+                        <li><strong>Resource feasibility:</strong> Can you actually do both well?</li>
+                    </ul>
+
+                    <h4>Interpretive Rigor</h4>
+                    <ul>
+                        <li><strong>Integration quality:</strong> Are methods genuinely mixed or just parallel?</li>
+                        <li><strong>Inference quality:</strong> Do conclusions reflect integrated insights?</li>
+                        <li><strong>Legitimation:</strong> Are claims warranted by the combined evidence?</li>
+                    </ul>
+
+                    <h4>Legitimation Strategies</h4>
+                    
+                    <div class="example-box">
+                        <h4>Key Strategies for Establishing Credibility</h4>
+                        <ul>
+                            <li><strong>Weakness minimization:</strong> Use strengths of one method to compensate for weaknesses of the other</li>
+                            <li><strong>Sequential legitimation:</strong> Build credibility through progressive phases</li>
+                            <li><strong>Conversion legitimation:</strong> Verify data transformation procedures</li>
+                            <li><strong>Paradigmatic mixing:</strong> Explicitly address epistemological tensions</li>
+                            <li><strong>Political legitimation:</strong> Consider power dynamics in representation</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Common Pitfalls to Avoid:</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Treating mixed methods as simply "more is better"</li>
+                            <li>Conducting parallel studies with no actual integration</li>
+                            <li>Adding a token qualitative or quantitative component</li>
+                            <li>Ignoring contradictory findings between methods</li>
+                            <li>Over-privileging one method over the other</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-list">
+                        <h4>📋 Quality Assessment Tools</h4>
+                        <ul>
+                            <li>Mixed Methods Appraisal Tool (MMAT)</li>
+                            <li>Quality criteria self-assessment checklist</li>
+                            <li>Integration quality rubric</li>
+                            <li>Committee presentation guidelines</li>
+                        </ul>
+                        <button class="button" onclick="showResourceInfo('Quality assessment tools are available in your course materials')">Access Quality Tools</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-box">
+                <h4>✅ Module 3 Assessment</h4>
+                
+                <p><strong>Knowledge Check Quiz:</strong> Test your understanding of mixed-methods design (10 questions)</p>
+                <a href="module3_knowledge_check_quiz.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">Take Quiz</a>
+                
+                <p><strong>Design Proposal:</strong> Develop a mixed-methods research design for your dissertation topic</p>
+                <p>Include: Design diagram, research questions, data collection plan, integration strategy, timeline</p>
+                <button class="button" onclick="showResourceInfo('Download the proposal template from your course materials')">Access Proposal Template</button>
+                
+                <p style="margin-top: 1rem;"><strong>Peer Review Exchange:</strong> Provide constructive feedback on a colleague's design proposal</p>
+                <button class="button" onclick="showAssessmentInfo('Access peer review assignments through your course LMS')">Join Peer Review</button>
+                
+                <p style="margin-top: 1rem;"><strong>Joint Display Creation:</strong> Build a joint display template for your proposed study</p>
+                <a href="joint_display_builder.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">Use Joint Display Builder</a>
+                
+                <button class="button" onclick="markModuleComplete(3)" style="background: #4caf50;">Mark Module 3 Complete</button>
+            </div>
+        </section>
+
+        <!-- Module 4 -->
+        <section id="module4" class="module">
+            <h2>🚀 Module 4: Advanced Applications and Integration</h2>
+            <p><strong>Week 4</strong></p>
+
+            <div class="learning-objectives">
+                <h3>Learning Objectives</h3>
+                <p>By the end of this module, you will be able to:</p>
+                <ul>
+                    <li>Combine multilevel modeling with mixed-methods approaches</li>
+                    <li>Navigate ethical considerations in complex designs</li>
+                    <li>Develop a comprehensive research proposal using advanced methods</li>
+                </ul>
+            </div>
+
+            <button class="collapsible">4.1 Multilevel Mixed Methods</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>When Worlds Collide: Combining MLM and Mixed Methods</h4>
+                    
+                    <p>Some research questions require BOTH multilevel modeling AND mixed methods. This represents the frontier of sophisticated educational research.</p>
+
+                    <div class="example-box">
+                        <h4>Comprehensive Example: District Policy Implementation Study</h4>
+                        
+                        <p><strong>Research Question:</strong> How does a new district equity policy affect student outcomes, and what implementation factors explain variation across schools?</p>
+                        
+                        <p><strong>Multilevel Structure:</strong></p>
+                        <ul>
+                            <li>Level 1: Students (n ≈ 5,000)</li>
+                            <li>Level 2: Classrooms (n ≈ 200)</li>
+                            <li>Level 3: Schools (n ≈ 15)</li>
+                        </ul>
+                        
+                        <p><strong>Quantitative Component:</strong></p>
+                        <ul>
+                            <li>Three-level hierarchical linear model</li>
+                            <li>Outcome: Student achievement growth</li>
+                            <li>Level-1 predictors: Prior achievement, demographics</li>
+                            <li>Level-2 predictors: Teacher implementation fidelity</li>
+                            <li>Level-3 predictors: School leadership support, resources</li>
+                        </ul>
+                        
+                        <p><strong>Qualitative Component (Explanatory Sequential):</strong></p>
+                        <ul>
+                            <li>Purposeful sampling based on MLM results: 6 high-effect schools, 6 low-effect schools</li>
+                            <li>Principal interviews: leadership strategies, barriers, facilitators</li>
+                            <li>Teacher focus groups: implementation experiences, needed supports</li>
+                            <li>Classroom observations: policy enactment in practice</li>
+                        </ul>
+                        
+                        <p><strong>Integration:</strong></p>
+                        <ul>
+                            <li>MLM identifies which schools had significant positive/negative effects</li>
+                            <li>Qualitative case studies explain WHY those schools differed</li>
+                            <li>Joint display: School effect size + implementation quality rating + qualitative themes</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-concept">
+                        <strong>Design Principle:</strong> Use quantitative multilevel models to identify patterns and variation; use qualitative methods to explain the mechanisms behind those patterns at each level.
+                    </div>
+
+                    <div class="interactive-box">
+                        <h4>🎯 Design Studio Activity</h4>
+                        <p>Design your own multilevel mixed-methods study:</p>
+                        <ol>
+                            <li>Identify the levels in your data structure</li>
+                            <li>Specify your multilevel model components</li>
+                            <li>Determine which variation (random effects) needs qualitative explanation</li>
+                            <li>Plan your mixed-methods integration strategy</li>
+                        </ol>
+                        <button class="button" onclick="showDesignInfo()">Explore Design Guidelines</button>
+                        <a href="research_design_checklist.html" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;">✅ Use Quality Checklist</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">4.2 Software and Practical Tools</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Tools for Multilevel Modeling</h4>
+                    
+                    <div class="resource-list">
+                        <h4>HLM (Hierarchical Linear and Nonlinear Modeling)</h4>
+                        <ul>
+                            <li><strong>Pros:</strong> User-friendly GUI, designed specifically for HLM, excellent documentation</li>
+                            <li><strong>Cons:</strong> Costly, less flexible than syntax-based programs</li>
+                            <li><strong>Best for:</strong> Beginners, standard multilevel models</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-list">
+                        <h4>R (lme4, nlme, lmerTest packages)</h4>
+                        <ul>
+                            <li><strong>Pros:</strong> Free, extremely flexible, reproducible, great graphics</li>
+                            <li><strong>Cons:</strong> Steep learning curve, requires coding</li>
+                            <li><strong>Best for:</strong> Advanced users, complex models, reproducible research</li>
+                        </ul>
+                        <p><strong>Sample R Code:</strong></p>
+                        <pre style="background: #f5f5f5; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>library(lme4)
+
+# Random intercept model
+model1 <- lmer(achievement ~ ses + (1 | school_id), data = student_data)
+
+# Random slopes model  
+model2 <- lmer(achievement ~ ses + (ses | school_id), data = student_data)
+
+# View results
+summary(model2)</code></pre>
+                    </div>
+
+                    <div class="resource-list">
+                        <h4>Stata (mixed, xtmixed)</h4>
+                        <ul>
+                            <li><strong>Pros:</strong> Powerful, good documentation, widely used in social sciences</li>
+                            <li><strong>Cons:</strong> Costly, less flexible graphics than R</li>
+                            <li><strong>Best for:</strong> Researchers in economics/policy, mixed models with complex covariance structures</li>
+                        </ul>
+                    </div>
+
+                    <h4>Tools for Qualitative Analysis</h4>
+                    
+                    <ul>
+                        <li><strong>NVivo:</strong> Comprehensive CAQDAS, excellent for coding and theme development</li>
+                        <li><strong>MAXQDA:</strong> User-friendly, strong visualization capabilities, good for mixed methods</li>
+                        <li><strong>Dedoose:</strong> Cloud-based, specifically designed for mixed-methods integration</li>
+                        <li><strong>Atlas.ti:</strong> Powerful networking features, theory building</li>
+                    </ul>
+
+                    <h4>Integration Tools</h4>
+                    
+                    <ul>
+                        <li><strong>Excel/Google Sheets:</strong> Simple joint displays, data transformation</li>
+                        <li><strong>Tableau:</strong> Interactive visualizations for data integration</li>
+                        <li><strong>Dedoose:</strong> Built-in mixed-methods integration features</li>
+                    </ul>
+
+                    <div class="resource-list">
+                        <h4>📹 Video Tutorial Library</h4>
+                        <ul>
+                            <li>Getting started with HLM (20 minutes)</li>
+                            <li>Multilevel modeling in R with lme4 (30 minutes)</li>
+                            <li>Stata mixed models tutorial (25 minutes)</li>
+                            <li>Creating joint displays in Excel (15 minutes)</li>
+                            <li>NVivo for dissertation research (45 minutes)</li>
+                        </ul>
+                        <button class="button" onclick="showResourceInfo('Video tutorials are available in your course LMS media library')">Access Video Library</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">4.3 Writing About Complex Methods</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Dissertation Chapter 3: Methodology</h4>
+                    
+                    <p>Writing about advanced methods requires clarity, precision, and transparency. Your committee needs to understand and approve your approach.</p>
+
+                    <div class="key-concept">
+                        <strong>Writing Principle:</strong> Justify every decision. Why this design? Why these specific methods? Why this sample? Anticipate questions and address them preemptively.
+                    </div>
+
+                    <h4>Structure for Multilevel Modeling Studies</h4>
+                    
+                    <ol>
+                        <li><strong>Research Design Overview</strong>
+                            <ul>
+                                <li>Type of study (correlational, quasi-experimental)</li>
+                                <li>Why multilevel modeling is necessary</li>
+                                <li>Brief overview of analytical approach</li>
+                            </ul>
+                        </li>
+                        <li><strong>Participants and Setting</strong>
+                            <ul>
+                                <li>Describe each level (students, classrooms, schools)</li>
+                                <li>Sample sizes at each level</li>
+                                <li>Demographic characteristics</li>
+                                <li>Sampling procedures</li>
+                            </ul>
+                        </li>
+                        <li><strong>Data Sources and Measures</strong>
+                            <ul>
+                                <li>Clearly specify which variables exist at which levels</li>
+                                <li>Reliability and validity evidence</li>
+                                <li>Data collection procedures</li>
+                            </ul>
+                        </li>
+                        <li><strong>Analytical Approach</strong>
+                            <ul>
+                                <li>Rationale for multilevel modeling</li>
+                                <li>Software and version</li>
+                                <li>Model building sequence (null → full model)</li>
+                                <li>Level-1 and Level-2 equations with notation</li>
+                                <li>Centering decisions (and why)</li>
+                                <li>How you'll handle missing data</li>
+                                <li>Assumptions and how you'll check them</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="example-box">
+                        <h4>Sample Text: Justifying MLM</h4>
+                        <p>"Given the nested structure of the data—students clustered within classrooms—multilevel modeling was necessary to avoid violating the independence assumption of ordinary least squares regression. Preliminary analysis revealed an intraclass correlation of .18, indicating that 18% of the variance in student achievement was attributable to differences between classrooms. This substantial clustering necessitates accounting for the dependency in the data structure (Raudenbush & Bryk, 2002)."</p>
+                    </div>
+
+                    <h4>Structure for Mixed-Methods Studies</h4>
+                    
+                    <ol>
+                        <li><strong>Mixed-Methods Design</strong>
+                            <ul>
+                                <li>Design type and notation (e.g., QUAN → qual)</li>
+                                <li>Visual design diagram</li>
+                                <li>Rationale for mixing methods</li>
+                                <li>Priority and sequence decisions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Quantitative Strand</strong>
+                            <ul>
+                                <li>Participants, measures, procedures</li>
+                                <li>Analysis plan</li>
+                            </ul>
+                        </li>
+                        <li><strong>Qualitative Strand</strong>
+                            <ul>
+                                <li>Participants (sampling strategy)</li>
+                                <li>Data sources (interviews, observations, documents)</li>
+                                <li>Analysis procedures (coding, theme development)</li>
+                                <li>Trustworthiness strategies</li>
+                            </ul>
+                        </li>
+                        <li><strong>Integration Procedures</strong>
+                            <ul>
+                                <li>How and when mixing occurs</li>
+                                <li>Joint display plans</li>
+                                <li>How you'll address discrepant findings</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="resource-list">
+                        <h4>📝 Writing Templates and Exemplars</h4>
+                        <ul>
+                            <li>Multilevel modeling methodology section template</li>
+                            <li>Mixed-methods methodology section template</li>
+                            <li>Model specification notation guide</li>
+                            <li>Design diagram examples</li>
+                            <li>High-quality dissertation chapter 3 exemplars (annotated)</li>
+                        </ul>
+                        <a href="Methodology_Chapter_Template.md" class="button" style="text-decoration: none; text-align: center; display: inline-block;" target="_blank">📄 Download Methodology Template</a>
+                        <a href="Mixed_Methods_Design_Flowchart.md" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;" target="_blank">📊 Download Design Flowchart</a>
+                    </div>
+
+                    <h4>Writing Results/Findings</h4>
+                    
+                    <div class="key-concept">
+                        <strong>For MLM Results:</strong>
+                        <ul>
+                            <li>Report model building sequence clearly</li>
+                            <li>Include model fit statistics and comparisons</li>
+                            <li>Present fixed effects with standard errors and p-values</li>
+                            <li>Report variance components and percentage reduction</li>
+                            <li>Interpret effects in substantively meaningful terms</li>
+                            <li>Use tables for model comparisons, text for interpretation</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-concept">
+                        <strong>For Mixed-Methods Findings:</strong>
+                        <ul>
+                            <li>Present quantitative and qualitative findings separately first</li>
+                            <li>Then present integrated findings using joint displays</li>
+                            <li>Explicitly address convergence, divergence, or expansion</li>
+                            <li>Develop meta-inferences that synthesize both strands</li>
+                            <li>Be transparent about contradictions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">4.4 Ethical Considerations</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Ethics in Complex Research Designs</h4>
+                    
+                    <p>Advanced methods introduce unique ethical considerations that researchers must navigate carefully.</p>
+
+                    <h4>Informed Consent Across Multiple Data Sources</h4>
+                    
+                    <ul>
+                        <li><strong>Challenge:</strong> Mixed methods often involve multiple phases and data types</li>
+                        <li><strong>Solution:</strong> Provide comprehensive consent documents that explain all phases, even if not all participants will be in all phases</li>
+                        <li><strong>Consideration:</strong> Some participants may consent to quantitative but not qualitative components (or vice versa)</li>
+                    </ul>
+
+                    <h4>Confidentiality with Hierarchical Data</h4>
+                    
+                    <ul>
+                        <li><strong>Challenge:</strong> School/district leaders may want to know which schools had negative results</li>
+                        <li><strong>Solution:</strong> Establish clear confidentiality agreements upfront. Report only aggregated results.</li>
+                        <li><strong>Consideration:</strong> Small samples at Level-2 may make anonymity difficult</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Ethical Red Flag:</strong> Never promise complete anonymity you cannot deliver. Be honest about limitations, especially with small sample sizes or identifiable contexts.
+                    </div>
+
+                    <h4>Power Dynamics in Mixed-Methods Research</h4>
+                    
+                    <ul>
+                        <li><strong>Representation:</strong> Whose voices are privileged? Who decides what counts?</li>
+                        <li><strong>Interpretation:</strong> Do participants have opportunity to member-check?</li>
+                        <li><strong>Benefit:</strong> Will findings benefit the communities studied?</li>
+                    </ul>
+
+                    <h4>Community-Engaged Approaches</h4>
+                    
+                    <div class="key-concept">
+                        <strong>Best Practice:</strong> Whenever possible, involve stakeholders in:
+                        <ul>
+                            <li>Research question development</li>
+                            <li>Instrument design</li>
+                            <li>Interpretation of findings</li>
+                            <li>Dissemination planning</li>
+                        </ul>
+                    </div>
+
+                    <h4>Data Security and Protection</h4>
+                    
+                    <ul>
+                        <li>Secure storage of linked data files</li>
+                        <li>De-identification procedures</li>
+                        <li>Retention and destruction protocols</li>
+                        <li>Compliance with FERPA (educational records)</li>
+                    </ul>
+
+                    <div class="interactive-box">
+                        <h4>💭 Ethical Reflection</h4>
+                        <p>Consider your own research:</p>
+                        <ul>
+                            <li>Who might be harmed by your findings?</li>
+                            <li>What power differentials exist in your research relationships?</li>
+                            <li>How will you ensure participants' voices are represented accurately?</li>
+                            <li>What are your obligations to the communities you study?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assessment-box">
+                <h4>✅ Module 4 Final Assessment</h4>
+                
+                <p><strong>Knowledge Check Quiz:</strong> Test your understanding of advanced applications (10 questions)</p>
+                <a href="module4_knowledge_check_quiz.html" class="button" style="text-decoration: none; text-align: center; display: inline-block;">Take Quiz</a>
+                
+                <p><strong>Choose Your Assessment Path:</strong></p>
+                
+                <div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 5px; border: 1px solid #ddd;">
+                    <h4 style="margin-top: 0;">Option A: Comprehensive Research Proposal</h4>
+                    <p>Develop a complete methodology chapter for your dissertation including:</p>
+                    <ul>
+                        <li>Research design justification</li>
+                        <li>Detailed multilevel model specification OR mixed-methods design diagram</li>
+                        <li>Complete analysis plan with integration strategy</li>
+                        <li>Ethical considerations specific to your study</li>
+                        <li>Anticipated limitations and how you'll address them</li>
+                    </ul>
+                    <a href="Dissertation_Proposal_Template.md" class="button" style="text-decoration: none; text-align: center; display: inline-block;" target="_blank">📄 Download Proposal Template</a>
+                    <a href="Quality_Assessment_Rubric.md" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;" target="_blank">📋 Download Rubric</a>
+                </div>
+
+                <div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 5px; border: 1px solid #ddd;">
+                    <h4 style="margin-top: 0;">Option B: Methodological Critique & Redesign</h4>
+                    <p>Select a published study and:</p>
+                    <ul>
+                        <li>Critique the methodological approach (what's missing?)</li>
+                        <li>Redesign using multilevel or mixed-methods approaches</li>
+                        <li>Justify why your approach is superior</li>
+                        <li>Discuss implementation feasibility</li>
+                    </ul>
+                    <a href="Quality_Assessment_Rubric.md" class="button" style="text-decoration: none; text-align: center; display: inline-block;" target="_blank">📋 Use Quality Rubric for Critique</a>
+                    <button class="button" style="margin-top: 10px;" onclick="showResourceInfo('Select a published article from your field. Use the Quality Assessment Rubric to systematically critique it. Then propose an improved design using MLM or MM approaches.')">View Critique Guidelines</button>
+                </div>
+
+                <div style="margin: 1rem 0; padding: 1rem; background: white; border-radius: 5px; border: 1px solid #ddd;">
+                    <h4 style="margin-top: 0;">Option C: Teaching Demonstration</h4>
+                    <p>Create and deliver a teaching presentation:</p>
+                    <ul>
+                        <li>15-minute lesson on one concept from this course</li>
+                        <li>Teach to peers or record for asynchronous viewing</li>
+                        <li>Include engaging visuals and activities</li>
+                        <li>Provide handout or resource for learners</li>
+                    </ul>
+                    <button class="button" onclick="showResourceInfo('Teaching Demo Evaluation Criteria:\n• Content accuracy (25%)\n• Clarity of explanation (25%)\n• Engagement strategies (20%)\n• Visual aids quality (15%)\n• Handout/resource value (15%)\n\nRecord your presentation or schedule with your instructor.')">View Evaluation Rubric</button>
+                </div>
+
+                <button class="button" onclick="markModuleComplete(4)" style="background: #4caf50;">Mark Module 4 Complete</button>
+                <button class="button" style="background: #9c27b0;" onclick="showCompletionMessage()">Submit Final Assessment</button>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="module">
+            <h2>📚 Supplementary Resources</h2>
+
+            <div class="resource-list">
+                <h4>Required Readings</h4>
+                <ul>
+                    <li>Raudenbush, S. W., & Bryk, A. S. (2002). <em>Hierarchical Linear Models</em> (2nd ed.). Sage. (Chapters 1-4)</li>
+                    <li>Creswell, J. W., & Plano Clark, V. L. (2018). <em>Designing and Conducting Mixed Methods Research</em> (3rd ed.). Sage. (Chapters 1-4)</li>
+                    <li>Hox, J. J., Moerbeek, M., & van de Schoot, R. (2017). <em>Multilevel Analysis: Techniques and Applications</em> (3rd ed.). Routledge. (Selected chapters)</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h4>Recommended Resources</h4>
+                <ul>
+                    <li>Fetters, M. D. (2020). <em>The Mixed Methods Research Workbook: Activities for Designing, Implementing, and Publishing Projects</em>. Sage.</li>
+                    <li>Snijders, T. A. B., & Bosker, R. J. (2012). <em>Multilevel Analysis: An Introduction to Basic and Advanced Multilevel Modeling</em> (2nd ed.). Sage.</li>
+                    <li>Teddlie, C., & Tashakkori, A. (2009). <em>Foundations of Mixed Methods Research</em>. Sage.</li>
+                    <li>Gelman, A., & Hill, J. (2007). <em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>. Cambridge University Press.</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h4>Online Resources & Tutorials</h4>
+                <ul>
+                    <li><a href="https://stats.idre.ucla.edu/other/mult-pkg/" target="_blank">UCLA Statistical Consulting - Multilevel Modeling</a></li>
+                    <li><a href="http://www.bristol.ac.uk/cmm/learning/online-course/" target="_blank">Centre for Multilevel Modelling - Free Online Course</a></li>
+                    <li><a href="https://mmira.wildapricot.org/" target="_blank">Mixed Methods International Research Association (MMIRA)</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h4>Quick Reference Guides</h4>
+                <ul>
+                    <li>Multilevel Modeling Decision Tree</li>
+                    <li>Mixed-Methods Design Selection Flowchart</li>
+                    <li>Model Specification Checklist</li>
+                    <li>Quality Criteria Self-Assessment</li>
+                    <li>Common Mistakes and How to Avoid Them</li>
+                    <li>Troubleshooting Guide for Convergence Issues</li>
+                </ul>
+                <a href="Quick_Reference_Resources.md" class="button" style="text-decoration: none; text-align: center; display: inline-block;" target="_blank">📄 Download All Quick References</a>
+                <a href="MASTER_TEMPLATE_INDEX.md" class="button" style="text-decoration: none; text-align: center; display: inline-block; margin-top: 10px;" target="_blank">📚 View Master Template Index</a>
+            </div>
+
+            <div class="content-section">
+                <h3>📧 Support & Contact</h3>
+                <p><strong>Instructor:</strong> Dr. MaryKat</p>
+                <p><strong>Office Hours:</strong> By appointment</p>
+                <p><strong>Email:</strong> [Contact information]</p>
+                <p><strong>Discussion Forum:</strong> Available through your learning management system</p>
+                
+                <h4 style="margin-top: 1.5rem;">Need Help?</h4>
+                <ul>
+                    <li><strong>Technical issues:</strong> Contact IT support</li>
+                    <li><strong>Methodological questions:</strong> Post in discussion forum or attend office hours</li>
+                    <li><strong>Dissertation-specific consultation:</strong> Schedule individual meeting</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3>🎓 Next Steps After Completion</h3>
+                <ol>
+                    <li>Schedule a consultation to discuss applying these methods to your dissertation</li>
+                    <li>Join the doctoral student methodology working group</li>
+                    <li>Consider presenting your work at research conferences (AERA, UCEA)</li>
+                    <li>Connect with faculty who use advanced methods for potential collaboration</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Educational Leadership & Policy Studies Doctoral Program</p>
+            <p>Southern Connecticut State University</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">This module aligns with CAEP standards for advanced educational research preparation and supports students toward successful dissertation completion.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Collapsible functionality
+        const collapsibles = document.getElementsByClassName("collapsible");
+        
+        for (let i = 0; i < collapsibles.length; i++) {
+            collapsibles[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+
+        // Progress tracking
+        let completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        
+        function markModuleComplete(moduleNum) {
+            if (!completedModules.includes(moduleNum)) {
+                completedModules.push(moduleNum);
+                localStorage.setItem('completedModules', JSON.stringify(completedModules));
+                updateProgress();
+                alert(`Module ${moduleNum} marked as complete! Great work!`);
+            } else {
+                alert(`Module ${moduleNum} is already marked as complete.`);
+            }
+        }
+
+        function updateProgress() {
+            const progress = Math.min((completedModules.length / 4) * 100, 100); // Cap at 100%
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = Math.round(progress) + '%';
+            }
+        }
+        
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                completedModules = [];
+                localStorage.setItem('completedModules', JSON.stringify(completedModules));
+                updateProgress();
+                alert('Progress has been reset!');
+            }
+        }
+
+        // Initialize progress on page load
+        updateProgress();
+
+        // Smooth scrolling function for navigation
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Helper functions for button interactions
+        function showQuizInfo() {
+            alert('📝 Quiz Information\n\nThe knowledge check quiz will be available through your Learning Management System (LMS). Please check your course page for the quiz link.\n\nAlternatively, your instructor may provide a printed or emailed quiz.');
+        }
+
+        function showSubmitInfo() {
+            alert('📤 Submission Information\n\nPlease submit your reflection through:\n• Your course LMS assignment page\n• Email to your instructor\n• The designated submission folder\n\nCheck with your instructor for the preferred submission method.');
+        }
+
+        function showAssessmentInfo(message) {
+            alert('✅ Assessment Information\n\n' + message);
+        }
+
+        function showResourceInfo(message) {
+            alert('📚 Resource Information\n\n' + message);
+        }
+
+        function showDesignInfo() {
+            alert('🎯 Design Activity\n\nConsider these questions to select your design:\n\n1. What is your primary research purpose?\n   - Explore → Exploratory Sequential\n   - Explain → Explanatory Sequential  \n   - Compare/Validate → Convergent\n   - Enhance → Embedded\n\n2. Do you need to develop an instrument?\n   - Yes → Exploratory Sequential\n\n3. Do you have unexpected quantitative results to explain?\n   - Yes → Explanatory Sequential\n\n4. Can you collect data concurrently?\n   - Yes, and want to triangulate → Convergent\n   - Yes, but one supports the other → Embedded\n\n5. Is time a constraint?\n   - Major constraint → Convergent or Embedded\n   - Flexible timeline → Sequential designs\n\nDiscuss your choice with your dissertation chair!');
+        }
+
+        function showCompletionMessage() {
+            alert('🎓 Congratulations!\n\nYou\'ve completed the Advanced Research Design Training!\n\nNext steps:\n1. Submit your final assessment to your instructor\n2. Schedule a meeting to discuss applying these methods to your dissertation\n3. Join the doctoral methodology working group\n4. Consider presenting at a research conference\n\nYou now have the foundation to conduct sophisticated, rigorous research. Best of luck with your dissertation!');
+        }
+    </script>
+</body>
+</html>
