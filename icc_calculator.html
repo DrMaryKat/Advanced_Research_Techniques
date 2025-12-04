@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICC Calculator & Interpreter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #11998e;
+        }
+
+        h1 {
+            color: #11998e;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4caf50;
+        }
+
+        .info-box h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #11998e;
+        }
+
+        .formula {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #11998e;
+            margin: 10px 0;
+        }
+
+        .calculator-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .helper-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        .button {
+            background: #11998e;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #0d7a6f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
+        }
+
+        .button-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .button-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            border: 3px solid #11998e;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-item {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 5px solid #11998e;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #11998e;
+            margin-bottom: 10px;
+        }
+
+        .interpretation {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 5px solid #2196F3;
+        }
+
+        .interpretation h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .recommendation {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 5px solid #ff9800;
+        }
+
+        .recommendation h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+
+        .variance-breakdown {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .variance-card {
+            flex: 1;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #11998e;
+        }
+
+        .variance-card h4 {
+            color: #11998e;
+            margin-bottom: 10px;
+        }
+
+        .variance-percentage {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #11998e;
+        }
+
+        .example-section {
+            background: #f0f4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .example-section h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .example-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .variance-breakdown {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 ICC Calculator & Interpreter</h1>
+            <p class="subtitle">Intraclass Correlation Coefficient Tool</p>
+        </header>
+
+        <div class="info-box">
+            <h3>What is the ICC?</h3>
+            <p>The <strong>Intraclass Correlation Coefficient (ICC)</strong> measures how much of the total variance in your outcome variable exists <strong>between groups</strong> rather than <strong>within groups</strong>. It tells you whether observations within the same group (e.g., students in the same classroom) are more similar to each other than to observations in other groups.</p>
+        </div>
+
+        <div class="formula-box">
+            <h4>ICC Formula</h4>
+            <div class="formula">ICC = τ₀₀ / (τ₀₀ + σ²)</div>
+            <p style="margin-top: 10px; color: #666;">
+                <strong>τ₀₀</strong> = Between-group variance<br>
+                <strong>σ²</strong> = Within-group variance
+            </p>
+        </div>
+
+        <div class="calculator-section">
+            <h2 style="margin-bottom: 20px; color: #11998e;">Calculate Your ICC</h2>
+            
+            <div class="input-group">
+                <label for="betweenVar">Between-Group Variance (τ₀₀)</label>
+                <p class="helper-text">From your null model output - often labeled as "Random Effects: Intercept Variance" or "Var(Intercept)"</p>
+                <input type="number" id="betweenVar" step="0.01" min="0" placeholder="e.g., 25.5">
+            </div>
+
+            <div class="input-group">
+                <label for="withinVar">Within-Group Variance (σ²)</label>
+                <p class="helper-text">From your null model output - often labeled as "Residual Variance" or "Var(Residual)"</p>
+                <input type="number" id="withinVar" step="0.01" min="0" placeholder="e.g., 120.3">
+            </div>
+
+            <button class="button" onclick="calculateICC()">Calculate ICC</button>
+            <button class="button button-secondary" onclick="resetCalculator()">Reset</button>
+        </div>
+
+        <div class="results-container" id="results">
+            <h2 style="color: #11998e; margin-bottom: 20px;">Your Results</h2>
+            
+            <div class="result-item">
+                <div class="result-label">Intraclass Correlation (ICC)</div>
+                <div class="result-value" id="iccValue">0.00</div>
+                <p id="iccPercentage" style="font-size: 1.1rem; color: #666;"></p>
+            </div>
+
+            <div class="variance-breakdown">
+                <div class="variance-card">
+                    <h4>Between Groups</h4>
+                    <div class="variance-percentage" id="betweenPercent">0%</div>
+                    <p style="color: #666; margin-top: 10px;">of total variance</p>
+                </div>
+                <div class="variance-card">
+                    <h4>Within Groups</h4>
+                    <div class="variance-percentage" id="withinPercent">0%</div>
+                    <p style="color: #666; margin-top: 10px;">of total variance</p>
+                </div>
+            </div>
+
+            <div class="interpretation">
+                <h3>📖 Interpretation</h3>
+                <p id="interpretationText"></p>
+            </div>
+
+            <div class="recommendation">
+                <h3>💡 Recommendation</h3>
+                <p id="recommendationText"></p>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h3>📚 Example Scenarios</h3>
+            
+            <div class="example-box">
+                <h4 style="color: #11998e; margin-bottom: 10px;">Example 1: Student Achievement</h4>
+                <p><strong>τ₀₀ = 35.2, σ² = 145.8</strong></p>
+                <p>ICC = 35.2 / (35.2 + 145.8) = 0.194 (19.4%)</p>
+                <p style="margin-top: 10px;"><em>Interpretation:</em> 19.4% of variance in student achievement is due to differences between schools. This is substantial clustering—definitely use MLM!</p>
+            </div>
+
+            <div class="example-box">
+                <h4 style="color: #11998e; margin-bottom: 10px;">Example 2: Teacher Job Satisfaction</h4>
+                <p><strong>τ₀₀ = 5.8, σ² = 88.2</strong></p>
+                <p>ICC = 5.8 / (5.8 + 88.2) = 0.062 (6.2%)</p>
+                <p style="margin-top: 10px;"><em>Interpretation:</em> 6.2% of variance is between schools. Even though it's small, you should still use MLM to account for clustering.</p>
+            </div>
+
+            <div class="example-box">
+                <h4 style="color: #11998e; margin-bottom: 10px;">Example 3: Test Scores</h4>
+                <p><strong>τ₀₀ = 2.1, σ² = 125.5</strong></p>
+                <p>ICC = 2.1 / (2.1 + 125.5) = 0.016 (1.6%)</p>
+                <p style="margin-top: 10px;"><em>Interpretation:</em> Only 1.6% of variance is between schools. Very little clustering, but if data is nested, conservative practice suggests using MLM anyway.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="button" onclick="window.location.href='advanced_research_training.html#module2'">Return to Module 2</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateICC() {
+            const tau00 = parseFloat(document.getElementById('betweenVar').value);
+            const sigma2 = parseFloat(document.getElementById('withinVar').value);
+
+            if (isNaN(tau00) || isNaN(sigma2) || tau00 < 0 || sigma2 < 0) {
+                alert('Please enter valid positive numbers for both variance components.');
+                return;
+            }
+
+            if (tau00 === 0 && sigma2 === 0) {
+                alert('Both variance components cannot be zero.');
+                return;
+            }
+
+            const totalVar = tau00 + sigma2;
+            const icc = tau00 / totalVar;
+            const betweenPercent = (icc * 100).toFixed(1);
+            const withinPercent = (100 - betweenPercent).toFixed(1);
+
+            // Display results
+            document.getElementById('iccValue').textContent = icc.toFixed(4);
+            document.getElementById('iccPercentage').textContent = 
+                `${betweenPercent}% of variance is between groups`;
+            document.getElementById('betweenPercent').textContent = betweenPercent + '%';
+            document.getElementById('withinPercent').textContent = withinPercent + '%';
+
+            // Interpretation
+            let interpretation = '';
+            if (icc < 0.01) {
+                interpretation = `Your ICC of ${icc.toFixed(4)} (${betweenPercent}%) indicates very little clustering. Less than 1% of variance exists between groups. Most variation is at the individual level within groups.`;
+            } else if (icc < 0.05) {
+                interpretation = `Your ICC of ${icc.toFixed(4)} (${betweenPercent}%) indicates minimal but present clustering. About ${betweenPercent}% of variance exists between groups. While small, this violates independence assumptions.`;
+            } else if (icc < 0.10) {
+                interpretation = `Your ICC of ${icc.toFixed(4)} (${betweenPercent}%) indicates moderate clustering. About ${betweenPercent}% of variance exists between groups. This is meaningful and requires multilevel modeling.`;
+            } else if (icc < 0.25) {
+                interpretation = `Your ICC of ${icc.toFixed(4)} (${betweenPercent}%) indicates substantial clustering. About ${betweenPercent}% of variance exists between groups. Multilevel modeling is definitely necessary.`;
+            } else {
+                interpretation = `Your ICC of ${icc.toFixed(4)} (${betweenPercent}%) indicates very high clustering. About ${betweenPercent}% of variance exists between groups. This is a strong multilevel structure that absolutely requires MLM.`;
+            }
+            document.getElementById('interpretationText').textContent = interpretation;
+
+            // Recommendation
+            let recommendation = '';
+            if (icc < 0.01) {
+                recommendation = `Recommendation: While clustering is minimal, if your data structure is nested (e.g., students in schools), conservative practice suggests using multilevel modeling anyway. The bias from ignoring even small ICCs can be meaningful. However, simple regression might be defensible if you adjust standard errors for clustering.`;
+            } else if (icc < 0.05) {
+                recommendation = `Recommendation: Use multilevel modeling. Even though the ICC is below 5%, ignoring this clustering will produce biased standard errors and inflated Type I error rates. The rule of thumb "ICC > .05" is just a guideline—any meaningful clustering warrants MLM.`;
+            } else if (icc < 0.15) {
+                recommendation = `Recommendation: Definitely use multilevel modeling. With ${betweenPercent}% of variance between groups, traditional regression will seriously underestimate standard errors. MLM is essential for accurate inference. You should also consider whether Level-2 (group-level) predictors might explain this between-group variance.`;
+            } else {
+                recommendation = `Recommendation: Multilevel modeling is absolutely essential. With ${betweenPercent}% of variance between groups, you have strong clustering that cannot be ignored. Not only should you use MLM, but you should strongly consider adding Level-2 predictors to explain this substantial between-group variation. Random slopes might also be warranted.`;
+            }
+            document.getElementById('recommendationText').textContent = recommendation;
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            
+            // Smooth scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetCalculator() {
+            document.getElementById('betweenVar').value = '';
+            document.getElementById('withinVar').value = '';
+            document.getElementById('results').classList.remove('show');
+        }
+
+        // Allow Enter key to calculate
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateICC();
+            }
+        });
+    </script>
+</body>
+</html>
