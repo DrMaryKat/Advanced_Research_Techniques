@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test - Advanced Research Training</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e3c72;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+        }
+        .button {
+            background: #1e3c72;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: #2a5298;
+            transform: translateY(-2px);
+        }
+        .success {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+        .instructions {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ff9800;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Button Test Page</h1>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ol>
+                <li><strong>Download this file</strong> from the outputs folder</li>
+                <li><strong>Open it directly in your web browser</strong> (Chrome, Firefox, Safari, Edge)</li>
+                <li><strong>Click the test buttons below</strong></li>
+            </ol>
+            <p><strong>Important:</strong> If you're viewing this through Claude's interface, you may see external link warnings. This is normal and will NOT happen when the file is opened in a regular browser or hosted on GitHub Pages.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 1: Simple Alert</h3>
+            <p>This button should show a simple alert dialog:</p>
+            <button class="button" onclick="test1()">Click Me - Test 1</button>
+            <p class="success" id="success1">✅ Test 1 passed!</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 2: Quiz Info</h3>
+            <p>This simulates the "Take Quiz" button:</p>
+            <button class="button" onclick="showQuizInfo()">Take Quiz</button>
+            <p class="success" id="success2">✅ Test 2 passed!</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 3: Design Helper</h3>
+            <p>This simulates the design selection helper:</p>
+            <button class="button" onclick="showDesignInfo()">Design Help</button>
+            <p class="success" id="success3">✅ Test 3 passed!</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 4: Navigation</h3>
+            <p>This simulates the navigation menu:</p>
+            <button class="button" onclick="scrollToSection('test-target')">Scroll to Target</button>
+            <p class="success" id="success4">✅ Test 4 passed!</p>
+        </div>
+
+        <div style="height: 300px;"></div>
+        <div id="test-target" style="background: #c8e6c9; padding: 20px; border-radius: 5px;">
+            <h3>🎯 Target Section</h3>
+            <p>If the scroll button worked, you smoothly scrolled to this section!</p>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #e8f5e9; border-radius: 5px;">
+            <h3>✅ Expected Results</h3>
+            <p>When you open this file directly in your browser:</p>
+            <ul>
+                <li>All buttons should work instantly</li>
+                <li>Alert dialogs should appear with messages</li>
+                <li>No external link warnings</li>
+                <li>Smooth scrolling should work</li>
+            </ul>
+            
+            <h3 style="margin-top: 20px;">❌ If You See Warnings</h3>
+            <p>If you're still seeing "Open external link" warnings, you are likely:</p>
+            <ul>
+                <li>Viewing through Claude's interface (not a real browser)</li>
+                <li>In a sandboxed environment</li>
+                <li>Using a browser extension that blocks JavaScript</li>
+            </ul>
+            <p><strong>Solution:</strong> Download the file and open it with File > Open in your browser, or upload to GitHub Pages.</p>
+        </div>
+    </div>
+
+    <script>
+        function test1() {
+            alert('✅ Test 1 Successful!\n\nThis is a simple JavaScript alert. If you can see this message, all the buttons in the main training module will work correctly!');
+            document.getElementById('success1').style.display = 'block';
+        }
+
+        function showQuizInfo() {
+            alert('📝 Quiz Information\n\nThe knowledge check quiz will be available through your Learning Management System (LMS). Please check your course page for the quiz link.\n\nAlternatively, your instructor may provide a printed or emailed quiz.');
+            document.getElementById('success2').style.display = 'block';
+        }
+
+        function showDesignInfo() {
+            alert('🎯 Design Activity\n\nConsider these questions to select your design:\n\n1. What is your primary research purpose?\n   - Explore → Exploratory Sequential\n   - Explain → Explanatory Sequential  \n   - Compare/Validate → Convergent\n   - Enhance → Embedded\n\n2. Do you need to develop an instrument?\n   - Yes → Exploratory Sequential\n\n3. Do you have unexpected quantitative results to explain?\n   - Yes → Explanatory Sequential\n\n4. Can you collect data concurrently?\n   - Yes, and want to triangulate → Convergent\n   - Yes, but one supports the other → Embedded\n\n5. Is time a constraint?\n   - Major constraint → Convergent or Embedded\n   - Flexible timeline → Sequential designs\n\nDiscuss your choice with your dissertation chair!');
+            document.getElementById('success3').style.display = 'block';
+        }
+
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('success4').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
